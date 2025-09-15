@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gdatasoftwareag/eramba-go-client/pkg/model"
+	"github.com/gdatasoftwareag/eramba-go-client/model"
 )
 
 func (a *Client) GetSecurityPolicies(ctx context.Context) ([]model.SecurityPolicy, error) {

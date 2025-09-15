@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 
-	"github.com/gdatasoftwareag/eramba-go-client/pkg/model"
+	"github.com/gdatasoftwareag/eramba-go-client/model"
 )
 
 func (a *Client) GetRiskThreat(ctx context.Context, id int32) (model.RiskThreat, error) {

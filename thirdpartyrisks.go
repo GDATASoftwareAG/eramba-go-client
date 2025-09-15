@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gdatasoftwareag/eramba-go-client/pkg/model"
+	"github.com/gdatasoftwareag/eramba-go-client/model"
 )
 
 func (a *Client) GetThirdPartyRisk(ctx context.Context, id int32) (model.ThirdPartyRisk, error) {

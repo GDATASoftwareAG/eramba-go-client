@@ -7,7 +7,7 @@
 
 | Type | Methods |
 | --- | --- |
-| Assets | Get, Index, Patch |
+| Assets | Get, Index, Patch, Post, Delete |
 | Asset Reviews | Index |
 | Security Policies | Index, Patch |
 | Security Policy Reviews | Index, Patch, Post |
@@ -16,6 +16,7 @@
 | Risk Exceptions | Get, Index, Patch, Post |
 | Risks | Get, Index, Patch, Post |
 | Risk Reviews | Index, Patch, Post |
+| Risk Threats | Get, Index |
 | Security Services | Get, Index, Patch |
 | Security Service Comments | Index |
 | Third Party Risks | Get, Index, Patch |
@@ -25,7 +26,6 @@
 ### Custom Fields
 
 Currently only supported on Projects.
-
 
 ## Disclaimer
 
