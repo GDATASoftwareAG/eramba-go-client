@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gdatasoftwareag/eramba-go-client/pkg/model"
+	"github.com/gdatasoftwareag/eramba-go-client/model"
 )
 
 func (a *Client) GetRiskException(ctx context.Context, id int32) (model.RiskException, error) {

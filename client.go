@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -90,6 +91,23 @@ func (a *Client) postOrPatchJsonByPath(ctx context.Context, method, path string,
 		return nil, fmt.Errorf("failed to %s", method)
 	}
 	return resp.Body, nil
+}
+
+func (a *Client) deleteById(ctx context.Context, path string, id int32) error {
+	req, err := http.NewRequestWithContext(ctx, http.MethodDelete, fmt.Sprintf("%s/%s/%d", a.url, path, id), nil)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Accept", "application/json")
+	req.SetBasicAuth(a.username, a.password)
+	resp, err := a.httpClient.Do(req)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode >= http.StatusBadRequest {
+		return errors.New("failed to delete")
+	}
+	return nil
 }
 
 func getDataById[K any](

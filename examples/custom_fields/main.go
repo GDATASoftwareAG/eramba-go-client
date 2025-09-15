@@ -8,7 +8,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	erambaClient "github.com/gdatasoftwareag/eramba-go-client/pkg/client"
+	erambaClient "github.com/gdatasoftwareag/eramba-go-client"
 )
 
 func main() {
