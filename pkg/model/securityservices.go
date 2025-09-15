@@ -12,7 +12,7 @@ const (
 type SecurityServices []*SecurityService
 
 func (p SecurityServices) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 

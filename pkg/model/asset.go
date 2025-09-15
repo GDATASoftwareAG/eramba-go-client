@@ -27,14 +27,14 @@ func (p *AssetLabelId) MarshalJSON() ([]byte, error) {
 type Risks []*Risk
 
 func (p Risks) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 
 type Assets []*Asset
 
 func (p Assets) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 

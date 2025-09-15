@@ -23,7 +23,7 @@ var ProjectSkippedFields = []string{
 type Projects []*Project
 
 func (p Projects) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 
