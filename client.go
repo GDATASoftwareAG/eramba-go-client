@@ -1,4 +1,4 @@
-package client
+package eramba
 
 import (
 	"bytes"
