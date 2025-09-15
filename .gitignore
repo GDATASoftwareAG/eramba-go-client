@@ -1,0 +1,9 @@
+.env
+.idea
+dist/
+out/
+bin/
+test/
+data/*
+!data/.gitkeep
+.golangci.bck.yml
