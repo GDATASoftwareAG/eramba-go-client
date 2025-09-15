@@ -38,7 +38,7 @@ func MarshalWithSkippingFields[T any](
 	return json.Marshal(out)
 }
 
-func ExtractPatchListId[K ErambaType](erambaObjects []K) []string {
+func extractPatchListId[K ErambaType](erambaObjects []K) []string {
 	objects := map[string]bool{}
 	if len(erambaObjects) == 0 {
 		return []string{}

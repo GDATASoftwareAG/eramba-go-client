@@ -18,7 +18,7 @@ func (t UseAttachment) MarshalJSON() ([]byte, error) {
 type SecurityPolices []*SecurityPolicy
 
 func (p SecurityPolices) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 

@@ -56,7 +56,7 @@ type RiskScore struct {
 type ThirdParties []*ThirdParty
 
 func (p ThirdParties) MarshalJSON() ([]byte, error) {
-	list := ExtractPatchListId(p)
+	list := extractPatchListId(p)
 	return json.Marshal(list)
 }
 
