@@ -8,6 +8,7 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -45,6 +46,10 @@ func New(erambaUrl, username, password string) Client {
 		url:        erambaUrl,
 		httpClient: &http.Client{Timeout: DefaultTimeoutSeconds * time.Second},
 	}
+}
+
+func (a *Client) BaseUrl() string {
+	return strings.ReplaceAll(a.url, "/api", "")
 }
 
 func (a *Client) getByPath(ctx context.Context, path string) (io.ReadCloser, error) {
