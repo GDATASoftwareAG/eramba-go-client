@@ -31,7 +31,7 @@ type Project struct {
 	Id              int32                  `json:"id"`
 	Title           string                 `json:"title"`
 	Description     string                 `json:"goal"`
-	PlanBudget      string                 `json:"plan_budget,omitempty"`
+	PlanBudget      *int32                 `json:"plan_budget"`
 	Start           *ErambaDate            `json:"start"`
 	Deadline        *ErambaDate            `json:"deadline"`
 	ProjectStatus   ProjectStatus          `json:"project_status_id"`
