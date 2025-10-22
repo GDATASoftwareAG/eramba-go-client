@@ -56,11 +56,6 @@ var SecurityPolicySkippedFields = []string{
 	"id",
 }
 
-var SecurityPolicyListFields = []string{
-	"projects",
-	"related_documents",
-}
-
 func (p *SecurityPolicy) MarshalJSON() ([]byte, error) {
 	type Alias SecurityPolicy
 	aux := Alias(*p)

@@ -98,7 +98,7 @@ func (t *ErambaDate) UnmarshalJSON(b []byte) (err error) {
 		return err
 	}
 	*t = ErambaDate(date)
-	return
+	return err
 }
 
 func (t *ErambaDate) MarshalJSON() ([]byte, error) {
