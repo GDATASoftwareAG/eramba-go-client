@@ -9,6 +9,8 @@
 | --- | --- |
 | Assets | Get, Index, Patch, Post, Delete |
 | Asset Reviews | Index |
+| Groups | Get, Index |
+| Users | Get, Index |
 | Security Policies | Index, Patch |
 | Security Policy Reviews | Index, Patch, Post |
 | Projects | Index, Patch, Post |
