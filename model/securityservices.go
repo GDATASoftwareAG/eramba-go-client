@@ -17,18 +17,18 @@ func (p SecurityServices) MarshalJSON() ([]byte, error) {
 }
 
 type SecurityService struct {
-	Id                  int32               `json:"id"`
-	Title               string              `json:"name"`
-	Description         string              `json:"objective"`
-	SecurityServiceType SecurityServiceType `json:"security_service_type_id"`
-	Collaborators       []UserOrGroup       `json:"collaborators"`
-	ServiceOwners       []UserOrGroup       `json:"service_owners"`
-	SecurityPolicies    []SecurityPolicy    `json:"security_policies"`
-	Projects            []Project           `json:"projects"`
-	DocumentationUrl    string              `json:"documentation_url"`
-	Risks               []Risk              `json:"risks"`
-	ThirdPartyRisks     []ThirdPartyRisk    `json:"third_party_risks"`
-	Classifications     []Tag               `json:"classifications"`
+	Id                      int32               `json:"id"`
+	Title                   string              `json:"name"`
+	Description             string              `json:"objective"`
+	SecurityServiceType     SecurityServiceType `json:"security_service_type_id"`
+	ControlOperatorContacts []UserOrGroup       `json:"collaborators"`
+	GrcContacts             []UserOrGroup       `json:"service_owners"`
+	SecurityPolicies        []SecurityPolicy    `json:"security_policies"`
+	Projects                []Project           `json:"projects"`
+	DocumentationUrl        string              `json:"documentation_url"`
+	Risks                   []Risk              `json:"risks"`
+	ThirdPartyRisks         []ThirdPartyRisk    `json:"third_party_risks"`
+	Classifications         []Tag               `json:"classifications"`
 }
 
 func (p *SecurityService) GetId() int32 {

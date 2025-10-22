@@ -22,8 +22,8 @@ type Risk struct {
 	Policies                       SecurityPolices        `json:"security_policies"`
 	PoliciesTreatment              SecurityPolices        `json:"security_policies_treatment"`
 	Projects                       Projects               `json:"projects"`
-	Owners                         []UserOrGroup          `json:"owners"`
-	Stakeholders                   []UserOrGroup          `json:"stakeholders"`
+	RiskGrcContacts                []UserOrGroup          `json:"owners"`
+	RiskOriginatorContracts        []UserOrGroup          `json:"stakeholders"`
 	Review                         string                 `json:"review"`
 
 	ThreatTags               []*OnlyId `json:"threat_tags"`
