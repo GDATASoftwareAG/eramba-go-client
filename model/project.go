@@ -37,7 +37,7 @@ type Project struct {
 	ProjectStatus   ProjectStatus          `json:"project_status_id"`
 	Tags            []Tag                  `json:"tags"`
 	Owners          []UserOrGroup          `json:"owners"`
-	Contacts        []UserOrGroup          `json:"contacts"`
+	GrcContacts     []UserOrGroup          `json:"contacts"`
 	Risks           []Risk                 `json:"risks"`
 	ThirdPartyRisks []ThirdPartyRisk       `json:"third_party_risks"`
 	CustomFields    map[string]CustomField `json:"-"`

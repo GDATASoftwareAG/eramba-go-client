@@ -31,8 +31,8 @@ type SecurityPolicy struct {
 	SecurityServices             []SecurityService `json:"security_services"`
 	RelatedDocuments             SecurityPolices   `json:"related_documents"`
 	Tags                         []Tag             `json:"tags"`
-	Collaborators                []UserOrGroup     `json:"collaborators"`
-	Owners                       []UserOrGroup     `json:"owners"`
+	PolicyReviewerContacts       []UserOrGroup     `json:"collaborators"`
+	GrcContacts                  []UserOrGroup     `json:"owners"`
 	Permission                   string            `json:"permission"`
 	Status                       int32             `json:"status"`
 	AssetLabelID                 *int32            `json:"asset_label_id,omitempty"`
