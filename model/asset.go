@@ -21,7 +21,7 @@ func (p *AssetLabelId) MarshalJSON() ([]byte, error) {
 	if p == nil {
 		return []byte(""), nil
 	}
-	return []byte(fmt.Sprintf("%d", p)), nil
+	return fmt.Appendf([]byte{}, "%d", p), nil
 }
 
 type Risks []*Risk
@@ -90,7 +90,7 @@ func AssetMarshalWithSkippingFields(
 	}
 
 	// Turn into map for merging
-	out := make(map[string]interface{})
+	out := make(map[string]any)
 	if err := json.Unmarshal(data, &out); err != nil {
 		return nil, err
 	}

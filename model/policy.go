@@ -35,7 +35,7 @@ type SecurityPolicy struct {
 	GrcContacts                  []UserOrGroup     `json:"owners"`
 	Permission                   string            `json:"permission"`
 	Status                       int32             `json:"status"`
-	AssetLabelID                 *int32            `json:"asset_label_id,omitempty"`
+	AssetLabelID                 *AssetLabelId     `json:"asset_label_id"`
 	Version                      string            `json:"version"`
 	PublishedDate                *ErambaDate       `json:"published_date"`
 	NextReviewDate               *ErambaDate       `json:"next_review_date"`

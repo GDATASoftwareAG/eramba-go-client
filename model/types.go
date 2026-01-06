@@ -8,8 +8,8 @@ import (
 )
 
 type CustomField struct {
-	Value         interface{} `json:"value"`
-	CustomFieldId int32       `json:"custom_field_id"`
+	Value         any   `json:"value"`
+	CustomFieldId int32 `json:"custom_field_id"`
 }
 
 func MarshalWithSkippingFields[T any](
@@ -23,7 +23,7 @@ func MarshalWithSkippingFields[T any](
 	}
 
 	// Turn into map for merging
-	out := make(map[string]interface{})
+	out := make(map[string]any)
 	if err := json.Unmarshal(data, &out); err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (p *OnlyId) MarshalJSON() ([]byte, error) {
 	if p == nil {
 		return []byte("null"), nil
 	}
-	return []byte(fmt.Sprintf("%d", p.Id)), nil
+	return fmt.Appendf([]byte{}, "%d", p.Id), nil
 }
 
 const DateFormat = "2006-01-02"

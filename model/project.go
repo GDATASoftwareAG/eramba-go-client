@@ -48,7 +48,7 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 	aux := &struct {
 		*Alias
 		// Capture all unknown fields
-		CustomFields map[string]interface{} `json:"-"`
+		CustomFields map[string]any `json:"-"`
 	}{
 		Alias: (*Alias)(p),
 	}
