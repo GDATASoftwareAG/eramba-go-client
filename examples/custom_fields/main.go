@@ -31,10 +31,10 @@ func main() {
 		project := &projects[i]
 		fmt.Println(project.Title)
 
-		bla, err := project.MarshalJSON()
+		bytes, err := project.MarshalJSON()
 		if err != nil {
 			log.Fatalf("Error marshaling project: %v", err)
 		}
-		fmt.Println(string(bla))
+		fmt.Println(string(bytes))
 	}
 }

@@ -31,10 +31,10 @@ func main() {
 		risk := &risks[i]
 		fmt.Println(risk.Title)
 
-		bla, err := risk.MarshalJSON()
+		bytes, err := risk.MarshalJSON()
 		if err != nil {
 			log.Fatalf("Error marshaling project: %v", err)
 		}
-		fmt.Println(string(bla))
+		fmt.Println(string(bytes))
 	}
 }
