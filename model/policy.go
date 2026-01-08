@@ -89,6 +89,3 @@ func (p *SecurityPolicyReview) MarshalJSON() ([]byte, error) {
 type PolicyDescription struct {
 	ContentType string `json:"content_type"`
 }
-type SecurityPolicyBla struct {
-	Description PolicyDescription `json:"description"`
-}

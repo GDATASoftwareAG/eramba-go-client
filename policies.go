@@ -12,6 +12,13 @@ func (a *Client) GetSecurityPolicies(ctx context.Context) ([]model.SecurityPolic
 	return getAllData[model.SecurityPolicy](ctx, "security-policies/index", a.getByPath)
 }
 
+func (a *Client) PostSecurityPolicy(
+	ctx context.Context,
+	data *model.SecurityPolicy,
+) (*model.SecurityPolicy, error) {
+	return postOrPatchJsonByPath(ctx, http.MethodPost, "security-policies/add", data, a.postOrPatchJsonByPath)
+}
+
 func (a *Client) PatchSecurityPolicy(
 	ctx context.Context,
 	id int32,

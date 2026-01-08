@@ -31,11 +31,11 @@ func main() {
 		user := &users[i]
 		fmt.Println(user.Id)
 
-		bla, err := user.MarshalJSON()
+		bytes, err := user.MarshalJSON()
 		if err != nil {
 			log.Fatalf("Error marshaling user: %v", err)
 		}
-		fmt.Println(string(bla))
+		fmt.Println(string(bytes))
 	}
 	groups, err := client.GetGroups(ctx)
 	if err != nil {
@@ -45,10 +45,10 @@ func main() {
 		group := &groups[i]
 		fmt.Println(group.Id)
 
-		bla, err := group.MarshalJSON()
+		bytes, err := group.MarshalJSON()
 		if err != nil {
 			log.Fatalf("Error marshaling group: %v", err)
 		}
-		fmt.Println(string(bla))
+		fmt.Println(string(bytes))
 	}
 }
