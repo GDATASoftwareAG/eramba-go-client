@@ -12,6 +12,10 @@ func (a *Client) GetSecurityPolicies(ctx context.Context) ([]model.SecurityPolic
 	return getAllData[model.SecurityPolicy](ctx, "security-policies/index", a.getByPath)
 }
 
+func (a *Client) GetSecurityPolicy(ctx context.Context, id int32) (model.SecurityPolicy, error) {
+	return getDataById[model.SecurityPolicy](ctx, "security-policies", id, a.getByPath)
+}
+
 func (a *Client) PostSecurityPolicy(
 	ctx context.Context,
 	data *model.SecurityPolicy,
