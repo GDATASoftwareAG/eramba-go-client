@@ -23,25 +23,26 @@ func (p SecurityPolices) MarshalJSON() ([]byte, error) {
 }
 
 type SecurityPolicy struct {
-	Id                           int32             `json:"id"`
-	Title                        string            `json:"index"`
-	Description                  string            `json:"short_description"`
-	SecurityPolicyDocumentTypeID int32             `json:"security_policy_document_type_id"`
-	Projects                     Projects          `json:"projects"`
-	SecurityServices             []SecurityService `json:"security_services"`
-	RelatedDocuments             SecurityPolices   `json:"related_documents"`
-	Tags                         []Tag             `json:"tags"`
-	PolicyReviewerContacts       []UserOrGroup     `json:"collaborators"`
-	GrcContacts                  []UserOrGroup     `json:"owners"`
-	Permission                   string            `json:"permission"`
-	Status                       int32             `json:"status"`
-	AssetLabelID                 *AssetLabelId     `json:"asset_label_id"`
-	Version                      string            `json:"version"`
-	PublishedDate                *ErambaDate       `json:"published_date"`
-	NextReviewDate               *ErambaDate       `json:"next_review_date"`
-	UseAttachments               UseAttachment     `json:"use_attachments"`
-	Url                          string            `json:"url"`
-	DocumentDescription          string            `json:"description"`
+	Id                           int32                  `json:"id"`
+	Title                        string                 `json:"index"`
+	Description                  string                 `json:"short_description"`
+	SecurityPolicyDocumentTypeID int32                  `json:"security_policy_document_type_id"`
+	Projects                     Projects               `json:"projects"`
+	SecurityServices             []SecurityService      `json:"security_services"`
+	RelatedDocuments             SecurityPolices        `json:"related_documents"`
+	Tags                         []Tag                  `json:"tags"`
+	PolicyReviewerContacts       []UserOrGroup          `json:"collaborators"`
+	GrcContacts                  []UserOrGroup          `json:"owners"`
+	Permission                   string                 `json:"permission"`
+	Status                       int32                  `json:"status"`
+	AssetLabelID                 *AssetLabelId          `json:"asset_label_id"`
+	Version                      string                 `json:"version"`
+	PublishedDate                *ErambaDate            `json:"published_date"`
+	NextReviewDate               *ErambaDate            `json:"next_review_date"`
+	UseAttachments               UseAttachment          `json:"use_attachments"`
+	Url                          string                 `json:"url"`
+	DocumentDescription          string                 `json:"description"`
+	Reviews                      []SecurityPolicyReview `json:"security_policy_reviews"`
 }
 
 func (p *SecurityPolicy) GetId() int32 {
@@ -54,6 +55,7 @@ func (p *SecurityPolicy) Link(base string) string {
 
 var SecurityPolicySkippedFields = []string{
 	"id",
+	"security_policy_reviews",
 }
 
 func (p *SecurityPolicy) MarshalJSON() ([]byte, error) {
