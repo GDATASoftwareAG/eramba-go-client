@@ -31,6 +31,10 @@ func (a *Client) GetSecurityPolicyReviews(ctx context.Context) ([]model.Security
 	return getAllData[model.SecurityPolicyReview](ctx, "security-policy-reviews/index", a.getByPath)
 }
 
+func (a *Client) GetSecurityPolicyReview(ctx context.Context, id int32) (model.SecurityPolicyReview, error) {
+	return getDataById[model.SecurityPolicyReview](ctx, "security-policy-reviews", id, a.getByPath)
+}
+
 func (a *Client) PatchSecurityPolicyReview(
 	ctx context.Context,
 	id int32,
@@ -44,4 +48,8 @@ func (a *Client) PostSecurityPolicyReview(
 	data *model.SecurityPolicyReview,
 ) (*model.SecurityPolicyReview, error) {
 	return postOrPatchJsonByPath(ctx, http.MethodPost, "security-policy-reviews/add", data, a.postOrPatchJsonByPath)
+}
+
+func (a *Client) DeleteSecurityPolicyReview(ctx context.Context, id int32) error {
+	return a.deleteById(ctx, "security-policy-reviews", id)
 }
