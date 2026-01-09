@@ -11,7 +11,7 @@
 | Asset Reviews | Index                           |
 | Groups | Get, Index                      |
 | Users | Get, Index                      |
-| Security Policies | Index, Patch, Post              |
+| Security Policies | Get, Index, Patch, Post              |
 | Security Policy Reviews | Get, Index, Patch, Post, Delete       |
 | Projects | Index, Patch, Post              |
 | Project Comments | Post                            |
