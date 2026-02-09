@@ -60,7 +60,7 @@ func (p *Asset) GetId() int32 {
 }
 
 func (p *Asset) Link(base string) string {
-	return buildLink(base, "assets", p.Id)
+	return ErambaViewLink(base, "assets", p.Id)
 }
 
 var AssetSkippedFields = []string{

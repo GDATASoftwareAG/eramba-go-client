@@ -13,7 +13,7 @@ func (b BusinessUnit) GetId() int32 {
 }
 
 func (b BusinessUnit) Link(base string) string {
-	return buildLink(base, "business-units", b.Id)
+	return ErambaViewLink(base, "business-units", b.Id)
 }
 
 type UserOrGroup struct {
@@ -51,27 +51,6 @@ func (o Tag) MarshalJSON() ([]byte, error) {
 
 type RiskScore struct {
 	Score int32 `json:"score"`
-}
-
-type ThirdParties []*ThirdParty
-
-func (p ThirdParties) MarshalJSON() ([]byte, error) {
-	list := extractPatchListId(p)
-	return json.Marshal(list)
-}
-
-type ThirdParty struct {
-	Id          int32  `json:"id"`
-	Title       string `json:"name"`
-	Description string `json:"description"`
-}
-
-func (p *ThirdParty) GetId() int32 {
-	return p.Id
-}
-
-func (p *ThirdParty) Link(base string) string {
-	return buildLink(base, "third-parties", p.Id)
 }
 
 type RiskClassification struct {

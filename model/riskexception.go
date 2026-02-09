@@ -21,7 +21,7 @@ func (p *RiskException) GetId() int32 {
 }
 
 func (p *RiskException) Link(base string) string {
-	return buildLink(base, "risk-exceptions", p.Id)
+	return ErambaViewLink(base, "risk-exceptions", p.Id)
 }
 
 func (p *RiskException) MarshalJSON() ([]byte, error) {

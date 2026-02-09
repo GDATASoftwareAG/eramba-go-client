@@ -50,7 +50,7 @@ func (p *SecurityPolicy) GetId() int32 {
 }
 
 func (p *SecurityPolicy) Link(base string) string {
-	return buildLink(base, "security-policies", p.Id)
+	return ErambaViewLink(base, "security-policies", p.Id)
 }
 
 var SecurityPolicySkippedFields = []string{
