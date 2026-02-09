@@ -36,7 +36,7 @@ func (p *SecurityService) GetId() int32 {
 }
 
 func (p *SecurityService) Link(base string) string {
-	return buildLink(base, "security-services", p.Id)
+	return ErambaViewLink(base, "security-services", p.Id)
 }
 
 func (p *SecurityService) MarshalJSON() ([]byte, error) {

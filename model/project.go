@@ -90,5 +90,5 @@ func (p *Project) GetId() int32 {
 }
 
 func (p *Project) Link(base string) string {
-	return buildLink(base, "projects", p.Id)
+	return ErambaViewLink(base, "projects", p.Id)
 }

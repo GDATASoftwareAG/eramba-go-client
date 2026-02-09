@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
+	"unicode"
 )
 
 type CustomField struct {
@@ -119,7 +121,19 @@ func (t *ErambaDate) IsEqual(b time.Time) bool {
 	return b.Format(DateFormat) == t.String()
 }
 
-func buildLink(base, tool string, id int32) string {
-	filter := "filter%5Bid%5D%5Boperator%5D=%24in&filter%5Bid%5D%5Bvalue%5D%5B0%5D="
-	return fmt.Sprintf("%s/%s?%s%d", base, tool, filter, id)
+func ErambaViewLink(base, tool string, id int32) string {
+	filter := "sort%5Bcreated%5D=desc"
+	return fmt.Sprintf("%s/%s/view/%s/%d?%s", base, tool, convertKebabToPascal(tool), id, filter)
+}
+
+func convertKebabToPascal(s string) string {
+	parts := strings.Split(s, "-")
+	for i := range parts {
+		if len(parts[i]) > 0 {
+			r := []rune(parts[i])
+			r[0] = unicode.ToUpper(r[0])
+			parts[i] = string(r)
+		}
+	}
+	return strings.Join(parts, "")
 }

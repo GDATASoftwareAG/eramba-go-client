@@ -38,7 +38,7 @@ func (p *Risk) GetId() int32 {
 }
 
 func (p *Risk) Link(base string) string {
-	return buildLink(base, "risks", p.Id)
+	return ErambaViewLink(base, "risks", p.Id)
 }
 
 var RiskSkippedFields = []string{

@@ -40,7 +40,7 @@ func (p *ThirdPartyRisk) GetId() int32 {
 }
 
 func (p *ThirdPartyRisk) Link(base string) string {
-	return buildLink(base, "third-party-risks", p.Id)
+	return ErambaViewLink(base, "third-party-risks", p.Id)
 }
 
 var ThirdPartyRiskSkippedFields = []string{
