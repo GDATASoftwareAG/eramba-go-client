@@ -10,6 +10,7 @@ type RiskException struct {
 	Description string        `json:"description"`
 	Expiration  *ErambaDate   `json:"expiration"`
 	ClosureDate *ErambaDate   `json:"closure_date"`
+	StartDate   *ErambaDate   `json:"start_date"`
 	Tags        []Tag         `json:"tags"`
 	Requesters  []UserOrGroup `json:"requesters"`
 	GrcContacts []UserOrGroup `json:"owners"`
