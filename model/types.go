@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"fmt"
+	"maps"
 	"strconv"
 	"strings"
 	"time"
@@ -12,6 +13,31 @@ import (
 type CustomField struct {
 	Value         any   `json:"value"`
 	CustomFieldId int32 `json:"custom_field_id"`
+}
+
+func UnmarshalCustomFields(data []byte) (map[string]CustomField, error) {
+	customFields := map[string]CustomField{}
+	baseFields := map[string]any{}
+	if err := json.Unmarshal(data, &baseFields); err != nil {
+		return customFields, err
+	}
+	keys := maps.Keys(baseFields)
+	for key := range keys {
+		if !strings.HasPrefix(key, "custom_field_") {
+			delete(baseFields, key)
+		} else {
+			data, err := json.Marshal(baseFields[key])
+			if err != nil {
+				return customFields, err
+			}
+			customField := CustomField{}
+			if err := json.Unmarshal(data, &customField); err != nil {
+				return customFields, err
+			}
+			customFields[key] = customField
+		}
+	}
+	return customFields, nil
 }
 
 func MarshalWithSkippingFields[T any](

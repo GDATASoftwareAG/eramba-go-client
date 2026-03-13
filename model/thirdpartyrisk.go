@@ -1,5 +1,9 @@
 package model
 
+import (
+	"encoding/json"
+)
+
 type ThirdPartyRisk struct {
 	Id          int32  `json:"id"`
 	Title       string `json:"title"`
@@ -33,6 +37,8 @@ type ThirdPartyRisk struct {
 	Projects                 Projects        `json:"projects"`
 	SharedInformation        string          `json:"shared_information"`
 	Controlled               string          `json:"controlled"`
+
+	CustomFields map[string]CustomField `json:"-"`
 }
 
 func (p *ThirdPartyRisk) GetId() int32 {
@@ -52,8 +58,27 @@ var ThirdPartyRiskSkippedFields = []string{
 	"third_party_risk_reviews",
 }
 
+func (p *ThirdPartyRisk) UnmarshalJSON(data []byte) error {
+	type Alias ThirdPartyRisk // avoid recursion
+	aux := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(p),
+	}
+
+	if err := json.Unmarshal(data, &aux.Alias); err != nil {
+		return err
+	}
+	customFields, err := UnmarshalCustomFields(data)
+	if err != nil {
+		return err
+	}
+	p.CustomFields = customFields
+	return nil
+}
+
 func (p *ThirdPartyRisk) MarshalJSON() ([]byte, error) {
 	type Alias ThirdPartyRisk
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, map[string]CustomField{}, ThirdPartyRiskSkippedFields)
+	return MarshalWithSkippingFields(aux, p.CustomFields, ThirdPartyRiskSkippedFields)
 }
