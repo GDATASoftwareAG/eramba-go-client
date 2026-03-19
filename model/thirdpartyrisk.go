@@ -24,7 +24,7 @@ type ThirdPartyRisk struct {
 	Threats                        string                 `json:"threats"`
 	Tags                           []Tag                  `json:"tags"`
 	RiskGrcContacts                []UserOrGroup          `json:"owners"`
-	RiskOriginatorContracts        []UserOrGroup          `json:"stakeholders"`
+	RiskOriginatorContacts         []UserOrGroup          `json:"stakeholders"`
 	ThirdPartyReviews              []Review               `json:"third_party_risk_reviews"`
 
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
