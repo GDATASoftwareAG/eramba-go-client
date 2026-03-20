@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"maps"
 	"strconv"
@@ -13,6 +14,8 @@ import (
 type CustomField struct {
 	Value         any   `json:"value"`
 	CustomFieldId int32 `json:"custom_field_id"`
+
+	MultiValue []CustomField `json:"-"`
 }
 
 func UnmarshalCustomFields(data []byte) (map[string]CustomField, error) {
@@ -30,14 +33,39 @@ func UnmarshalCustomFields(data []byte) (map[string]CustomField, error) {
 			if err != nil {
 				return customFields, err
 			}
-			customField := CustomField{}
-			if err := json.Unmarshal(data, &customField); err != nil {
+			customField, err := unmarshalSingleCustomField(data)
+			if err != nil {
 				return customFields, err
 			}
-			customFields[key] = customField
+			customFields[key] = *customField
 		}
 	}
 	return customFields, nil
+}
+
+func unmarshalSingleCustomField(data []byte) (*CustomField, error) {
+	if len(data) == 0 {
+		return nil, errors.New("custom_field is empty")
+	}
+	if data[0] == '[' {
+		arrayCustomField := make([]CustomField, 0)
+		if err := json.Unmarshal(data, &arrayCustomField); err != nil {
+			return nil, err
+		}
+		return &CustomField{
+			Value:         nil,
+			MultiValue:    arrayCustomField,
+			CustomFieldId: 0,
+		}, nil
+	}
+	customField := CustomField{}
+	if err := json.Unmarshal(data, &customField); err != nil {
+		return nil, err
+	}
+	return &CustomField{
+		Value:         customField.Value,
+		CustomFieldId: customField.CustomFieldId,
+	}, nil
 }
 
 func MarshalWithSkippingFields[T any](
@@ -60,7 +88,12 @@ func MarshalWithSkippingFields[T any](
 	}
 	// Add extra fields back
 	for k, v := range customFields {
-		out[k] = v
+		if v.Value != nil {
+			out[k] = v
+		}
+		if v.MultiValue != nil {
+			out[k] = v.MultiValue
+		}
 	}
 
 	return json.Marshal(out)
