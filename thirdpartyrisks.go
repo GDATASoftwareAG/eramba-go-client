@@ -16,6 +16,10 @@ func (a *Client) GetThirdPartyRisks(ctx context.Context) ([]model.ThirdPartyRisk
 	return getAllData[model.ThirdPartyRisk](ctx, "third-party-risks/index", a.getByPath)
 }
 
+func (a *Client) PostThirdPartyRisk(ctx context.Context, data *model.ThirdPartyRisk) (*model.ThirdPartyRisk, error) {
+	return postOrPatchJsonByPath(ctx, http.MethodPost, "third-party-risks/add", data, a.postOrPatchJsonByPath)
+}
+
 func (a *Client) PatchThirdPartyRisk(
 	ctx context.Context,
 	id int32,
