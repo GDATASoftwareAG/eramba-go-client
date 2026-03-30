@@ -60,7 +60,3 @@ type RiskClassification struct {
 func (o RiskClassification) MarshalJSON() ([]byte, error) {
 	return json.Marshal(o.RiskClassificationId)
 }
-
-type Comment struct {
-	Message string `json:"message"`
-}

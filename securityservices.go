@@ -24,6 +24,9 @@ func (a *Client) PatchSecurityService(
 	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-services/%d", id), data, a.postOrPatchJsonByPath)
 }
 
-func (a *Client) GetSecurityServiceComments(ctx context.Context, id int32) ([]model.Comment, error) {
-	return getAllData[model.Comment](ctx, fmt.Sprintf("security-services/%d/comments", id), a.getByPath)
+func (a *Client) SecurityServiceComments() *CommentsClient {
+	return &CommentsClient{
+		client: a,
+		path:   "security-services",
+	}
 }
