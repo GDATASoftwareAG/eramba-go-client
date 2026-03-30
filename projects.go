@@ -20,6 +20,9 @@ func (a *Client) PatchProject(ctx context.Context, id int32, data *model.Project
 	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("projects/%d", id), data, a.postOrPatchJsonByPath)
 }
 
-func (a *Client) PostProjectComment(ctx context.Context, id int32, data *model.Comment) (*model.Comment, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, fmt.Sprintf("projects/%d/comments/add", id), data, a.postOrPatchJsonByPath)
+func (a *Client) ProjectComments() *CommentsClient {
+	return &CommentsClient{
+		client: a,
+		path:   "projects",
+	}
 }

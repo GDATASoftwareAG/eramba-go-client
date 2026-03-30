@@ -35,3 +35,10 @@ func (a *Client) GetThirdPartyRiskReviews(ctx context.Context) ([]model.Review, 
 func (a *Client) PostThirdPartyRiskReview(ctx context.Context, data *model.Review) (*model.Review, error) {
 	return postOrPatchJsonByPath(ctx, http.MethodPost, "third-party-risk-reviews/add", data, a.postOrPatchJsonByPath)
 }
+
+func (a *Client) ThirdPartyRiskComments() *CommentsClient {
+	return &CommentsClient{
+		client: a,
+		path:   "third-party-risks",
+	}
+}

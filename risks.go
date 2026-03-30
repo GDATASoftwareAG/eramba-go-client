@@ -35,3 +35,10 @@ func (a *Client) PostRiskReview(ctx context.Context, data *model.Review) (*model
 func (a *Client) PatchRiskReview(ctx context.Context, id int32, data *model.Review) (*model.Review, error) {
 	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("risk-reviews/%d", id), data, a.postOrPatchJsonByPath)
 }
+
+func (a *Client) RiskComments() *CommentsClient {
+	return &CommentsClient{
+		client: a,
+		path:   "risks",
+	}
+}
