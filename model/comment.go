@@ -10,5 +10,5 @@ type Comment struct {
 func (p *Comment) MarshalJSON() ([]byte, error) {
 	type Alias Comment
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, map[string]CustomField{}, []string{"id", "foreign_key", "user_id"})
+	return MarshalWithSkippingFields(aux, map[string]CustomField{}, []string{FieldId, "foreign_key", "user_id"})
 }

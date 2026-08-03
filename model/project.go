@@ -13,9 +13,9 @@ const (
 )
 
 var ProjectSkippedFields = []string{
-	"id",
+	FieldId,
 	"risks",
-	"third_party_risks",
+	FieldThirdPartyRisks,
 }
 
 type Projects []*Project

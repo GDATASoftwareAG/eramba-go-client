@@ -80,6 +80,12 @@ linters:
       - third_party$
       - builtin$
       - examples$
+    rules:
+      - path: '(.+)_test\.go'
+        linters:
+          - funlen
+          - goconst
+          - dupl
 formatters:
   enable:
     - gofumpt

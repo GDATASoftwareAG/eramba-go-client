@@ -54,7 +54,7 @@ func (p *SecurityPolicy) Link(base string) string {
 }
 
 var SecurityPolicySkippedFields = []string{
-	"id",
+	FieldId,
 	"security_policy_reviews",
 }
 
@@ -79,7 +79,7 @@ type SecurityPolicyReview struct {
 }
 
 var SecurityPolicyReviewSkippedFields = []string{
-	"id",
+	FieldId,
 }
 
 func (p *SecurityPolicyReview) MarshalJSON() ([]byte, error) {

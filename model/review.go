@@ -5,9 +5,8 @@ import (
 )
 
 var ReviewSkippedFields = []string{
-	"id",
+	FieldId,
 	"model",
-	"third_party_risks",
 }
 
 type Review struct {

@@ -1,7 +1,7 @@
 package model
 
 var RiskExceptionSkippedFields = []string{
-	"id",
+	FieldId,
 }
 
 type RiskException struct {

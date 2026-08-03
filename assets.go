@@ -28,6 +28,21 @@ func (a *Client) DeleteAsset(ctx context.Context, id int32) error {
 	return a.deleteById(ctx, "assets", id)
 }
 
+func (a *Client) AssetComments() *CommentsClient {
+	return &CommentsClient{
+		client: a,
+		path:   "assets",
+	}
+}
+
 func (a *Client) GetAssetReviews(ctx context.Context) ([]model.Review, error) {
 	return getAllData[model.Review](ctx, "asset-reviews/index", a.getByPath)
+}
+
+func (a *Client) PostAssetReview(ctx context.Context, data *model.Review) (*model.Review, error) {
+	return postOrPatchJsonByPath(ctx, http.MethodPost, "asset-reviews/add", data, a.postOrPatchJsonByPath)
+}
+
+func (a *Client) PatchAssetReview(ctx context.Context, id int32, data *model.Review) (*model.Review, error) {
+	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("asset-reviews/%d", id), data, a.postOrPatchJsonByPath)
 }

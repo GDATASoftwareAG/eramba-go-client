@@ -48,11 +48,11 @@ func (p *Risk) Link(base string) string {
 }
 
 var RiskSkippedFields = []string{
-	"id",
-	"risk_appetite_threshold_analysis",
-	"risk_appetite_threshold_treatment",
-	"risk_score_analysis",
-	"risk_score_treatment",
+	FieldId,
+	FieldRiskAppetiteThresholdAnalysis,
+	FieldRiskAppetiteThresholdTreatment,
+	FieldRiskScoreAnalysis,
+	FieldRiskScoreTreatment,
 	"risk_reviews",
 }
 
