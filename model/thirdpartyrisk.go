@@ -50,11 +50,11 @@ func (p *ThirdPartyRisk) Link(base string) string {
 }
 
 var ThirdPartyRiskSkippedFields = []string{
-	"id",
-	"risk_appetite_threshold_analysis",
-	"risk_appetite_threshold_treatment",
-	"risk_score_analysis",
-	"risk_score_treatment",
+	FieldId,
+	FieldRiskAppetiteThresholdAnalysis,
+	FieldRiskAppetiteThresholdTreatment,
+	FieldRiskScoreAnalysis,
+	FieldRiskScoreTreatment,
 	"third_party_risk_reviews",
 }
 

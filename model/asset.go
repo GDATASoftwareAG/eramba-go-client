@@ -64,12 +64,7 @@ func (p *Asset) Link(base string) string {
 }
 
 var AssetSkippedFields = []string{
-	"id",
-	"risk_appetite_threshold_analysis",
-	"risk_appetite_threshold_treatment",
-	"risk_score_analysis",
-	"risk_score_treatment",
-	"risk_reviews",
+	FieldId,
 	"asset_classifications",
 }
 
