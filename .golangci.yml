@@ -86,14 +86,24 @@ linters:
           - funlen
           - goconst
           - dupl
+      - path: 'risks\.go'
+        linters:
+          - dupl
+      - path: 'thirdpartyrisks\.go'
+        linters:
+          - dupl
 formatters:
   enable:
     - gofumpt
-    - goimports
+    - gci
   settings:
-    goimports:
-      local-prefixes:
-        - github.com/gdatasoftwareag/eramba-go-client
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/gdatasoftwareag/eramba-go-client)
+    gofumpt:
+      module-path: github.com/gdatasoftwareag/eramba-go-client
   exclusions:
     generated: lax
     paths:
