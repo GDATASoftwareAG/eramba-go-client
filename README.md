@@ -9,23 +9,20 @@ Minimal requirement is Eramba 3.28.0.
 
 ## Supported APIs
 
-| Type                     | Methods                         | Custom Fields | Comments & Attachments |
-|--------------------------|---------------------------------|---------------|------------------------|
-| Assets                   | Get, Index, Patch, Post, Delete |               | Comments               |
-| Asset Reviews            | Index, Patch, Post              |               |                        |
-| Groups                   | Get, Index                      |               |                        |
-| Users                    | Get, Index                      |               |                        |
-| Security Policies        | Get, Index, Patch, Post         |               |                        |
-| Security Policy Reviews  | Get, Index, Patch, Post, Delete |               |                        |
-| Projects                 | Index, Patch, Post              | Supported     | Comments               |
-| Risk Exceptions          | Get, Index, Patch, Post         |               |                        |
-| Risks                    | Get, Index, Patch, Post         | Supported     | Comments               |
-| Risk Reviews             | Index, Patch, Post              |               |                        |
-| Risk Threats             | Get, Index                      |               |                        |
-| Security Services        | Get, Index, Patch               |               | Comments               |
-| Third Parties            | Get, Index, Patch               | Supported     |                        |
-| Third Party Risks        | Get, Index, Patch, Post         | Supported     | Comments               |
-| Third Party Risk Reviews | Index, Post                     |               |                        |
+| Type                    | Methods                         | Custom Fields | Comments & Attachments | Reviews   |
+|-------------------------|---------------------------------|---------------|------------------------|-----------|
+| Assets                  | Get, Index, Patch, Post, Delete |               | Comments               | Supported |
+| Groups                  | Get, Index                      |               |                        |           |
+| Users                   | Get, Index                      |               |                        |           |
+| Security Policies       | Get, Index, Patch, Post         |               |                        |           |
+| Security Policy Reviews | Get, Index, Patch, Post, Delete |               |                        |           |
+| Projects                | Index, Patch, Post              | Supported     | Comments               |           |
+| Risk Exceptions         | Get, Index, Patch, Post         |               |                        |           |
+| Risks                   | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
+| Risk Threats            | Get, Index                      |               |                        |           |
+| Security Services       | Get, Index, Patch               |               | Comments               |           |
+| Third Parties           | Get, Index, Patch               | Supported     |                        |           |
+| Third Party Risks       | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
 
 ## Disclaimer
 

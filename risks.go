@@ -24,21 +24,16 @@ func (a *Client) PatchRisk(ctx context.Context, id int32, data *model.Risk) (*mo
 	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("risks/%d", id), data, a.postOrPatchJsonByPath)
 }
 
-func (a *Client) GetRiskReviews(ctx context.Context) ([]model.Review, error) {
-	return getAllData[model.Review](ctx, "risk-reviews/index", a.getByPath)
-}
-
-func (a *Client) PostRiskReview(ctx context.Context, data *model.Review) (*model.Review, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "risk-reviews/add", data, a.postOrPatchJsonByPath)
-}
-
-func (a *Client) PatchRiskReview(ctx context.Context, id int32, data *model.Review) (*model.Review, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("risk-reviews/%d", id), data, a.postOrPatchJsonByPath)
-}
-
 func (a *Client) RiskComments() *CommentsClient {
 	return &CommentsClient{
 		client: a,
 		path:   "risks",
+	}
+}
+
+func (a *Client) RiskReviews() *ReviewsClient {
+	return &ReviewsClient{
+		client: a,
+		path:   "risk-reviews",
 	}
 }
