@@ -38,7 +38,7 @@ type ThirdPartyRisk struct {
 	SharedInformation        string          `json:"shared_information"`
 	Controlled               string          `json:"controlled"`
 
-	CustomFields map[string]CustomField `json:"-"`
+	CustomFields CustomFields `json:"-"`
 }
 
 func (p *ThirdPartyRisk) GetId() int32 {
