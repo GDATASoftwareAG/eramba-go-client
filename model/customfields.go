@@ -26,14 +26,34 @@ func (c CustomFields) SetString(key, value string) {
 	}
 }
 
-func (c CustomFields) GetString(key string) string {
+func (c CustomFields) GetString(key string) (string, bool) {
 	if value, exists := c[key]; exists {
 		str, isStr := value.Value.(string)
 		if isStr {
-			return str
+			return str, true
 		}
 	}
-	return ""
+	return "", false
+}
+
+func (c CustomFields) SetInt(key string, value int) {
+	if field, exists := c[key]; !exists {
+		c[key] = CustomField{
+			Value: value,
+		}
+	} else {
+		field.Value = value
+	}
+}
+
+func (c CustomFields) GetInt(key string) (int, bool) {
+	if value, exists := c[key]; exists {
+		integer, isInt := value.Value.(int)
+		if isInt {
+			return integer, true
+		}
+	}
+	return 0, false
 }
 
 func UnmarshalCustomFields(data []byte) (CustomFields, error) {
