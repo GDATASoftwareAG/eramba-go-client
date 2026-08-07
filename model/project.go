@@ -26,19 +26,19 @@ func (p Projects) MarshalJSON() ([]byte, error) {
 }
 
 type Project struct {
-	Id              int32                  `json:"id"`
-	Title           string                 `json:"title"`
-	Description     string                 `json:"goal"`
-	PlanBudget      *int32                 `json:"plan_budget"`
-	Start           *ErambaDate            `json:"start"`
-	Deadline        *ErambaDate            `json:"deadline"`
-	ProjectStatus   ProjectStatus          `json:"project_status_id"`
-	Tags            []Tag                  `json:"tags"`
-	Owners          []UserOrGroup          `json:"owners"`
-	GrcContacts     []UserOrGroup          `json:"contacts"`
-	Risks           []Risk                 `json:"risks"`
-	ThirdPartyRisks []ThirdPartyRisk       `json:"third_party_risks"`
-	CustomFields    map[string]CustomField `json:"-"`
+	Id              int32            `json:"id"`
+	Title           string           `json:"title"`
+	Description     string           `json:"goal"`
+	PlanBudget      *int32           `json:"plan_budget"`
+	Start           *ErambaDate      `json:"start"`
+	Deadline        *ErambaDate      `json:"deadline"`
+	ProjectStatus   ProjectStatus    `json:"project_status_id"`
+	Tags            []Tag            `json:"tags"`
+	Owners          []UserOrGroup    `json:"owners"`
+	GrcContacts     []UserOrGroup    `json:"contacts"`
+	Risks           []Risk           `json:"risks"`
+	ThirdPartyRisks []ThirdPartyRisk `json:"third_party_risks"`
+	CustomFields    CustomFields     `json:"-"`
 }
 
 func (p *Project) UnmarshalJSON(data []byte) error {

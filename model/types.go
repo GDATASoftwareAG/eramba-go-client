@@ -1,103 +1,12 @@
 package model
 
 import (
-	"encoding/json"
-	"errors"
 	"fmt"
-	"maps"
 	"strconv"
 	"strings"
 	"time"
 	"unicode"
 )
-
-type CustomField struct {
-	Value         any   `json:"value"`
-	CustomFieldId int32 `json:"custom_field_id"`
-
-	MultiValue []CustomField `json:"-"`
-}
-
-func UnmarshalCustomFields(data []byte) (map[string]CustomField, error) {
-	customFields := map[string]CustomField{}
-	baseFields := map[string]any{}
-	if err := json.Unmarshal(data, &baseFields); err != nil {
-		return customFields, err
-	}
-	keys := maps.Keys(baseFields)
-	for key := range keys {
-		if !strings.HasPrefix(key, "custom_field_") {
-			delete(baseFields, key)
-		} else {
-			data, err := json.Marshal(baseFields[key])
-			if err != nil {
-				return customFields, err
-			}
-			customField, err := unmarshalSingleCustomField(data)
-			if err != nil {
-				return customFields, err
-			}
-			customFields[key] = *customField
-		}
-	}
-	return customFields, nil
-}
-
-func unmarshalSingleCustomField(data []byte) (*CustomField, error) {
-	if len(data) == 0 {
-		return nil, errors.New("custom_field is empty")
-	}
-	if data[0] == '[' {
-		arrayCustomField := make([]CustomField, 0)
-		if err := json.Unmarshal(data, &arrayCustomField); err != nil {
-			return nil, err
-		}
-		return &CustomField{
-			Value:         nil,
-			MultiValue:    arrayCustomField,
-			CustomFieldId: 0,
-		}, nil
-	}
-	customField := CustomField{}
-	if err := json.Unmarshal(data, &customField); err != nil {
-		return nil, err
-	}
-	return &CustomField{
-		Value:         customField.Value,
-		CustomFieldId: customField.CustomFieldId,
-	}, nil
-}
-
-func MarshalWithSkippingFields[T any](
-	p T,
-	customFields map[string]CustomField,
-	skippedFields []string,
-) ([]byte, error) {
-	data, err := json.Marshal(p)
-	if err != nil {
-		return nil, err
-	}
-
-	// Turn into map for merging
-	out := make(map[string]any)
-	if err := json.Unmarshal(data, &out); err != nil {
-		return nil, err
-	}
-	for _, k := range skippedFields {
-		delete(out, k)
-	}
-	// Add extra fields back
-	for k, v := range customFields {
-		if v.Value != nil {
-			out[k] = v
-		}
-		if v.MultiValue != nil {
-			out[k] = v.MultiValue
-		}
-	}
-
-	return json.Marshal(out)
-}
 
 func extractPatchListId[K ErambaType](erambaObjects []K) []string {
 	objects := map[string]bool{}

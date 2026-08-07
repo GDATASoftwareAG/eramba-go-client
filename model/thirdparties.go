@@ -21,7 +21,7 @@ type ThirdParty struct {
 	Processes     []*OnlyId     `json:"processes"`
 	Legals        []*OnlyId     `json:"legals"`
 
-	CustomFields map[string]CustomField `json:"-"`
+	CustomFields CustomFields `json:"-"`
 }
 
 func (p *ThirdParty) GetId() int32 {

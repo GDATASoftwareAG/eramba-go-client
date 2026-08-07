@@ -69,12 +69,12 @@ var AssetSkippedFields = []string{
 }
 
 func (p *Asset) MarshalJSON() ([]byte, error) {
-	return AssetMarshalWithSkippingFields(p, map[string]CustomField{}, AssetSkippedFields)
+	return AssetMarshalWithSkippingFields(p, CustomFields{}, AssetSkippedFields)
 }
 
 func AssetMarshalWithSkippingFields(
 	p *Asset,
-	customFields map[string]CustomField,
+	customFields CustomFields,
 	skippedFields []string,
 ) ([]byte, error) {
 	type Alias Asset

@@ -36,7 +36,7 @@ type Risk struct {
 	RiskExceptions           []*OnlyId `json:"risk_exceptions"`
 	SecurityPoliciesIncident []*OnlyId `json:"security_policies_incident"`
 
-	CustomFields map[string]CustomField `json:"-"`
+	CustomFields CustomFields `json:"-"`
 }
 
 func (p *Risk) GetId() int32 {
