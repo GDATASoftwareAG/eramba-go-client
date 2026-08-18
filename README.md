@@ -23,6 +23,7 @@ Minimal requirement is Eramba 3.28.0.
 | Security Services       | Get, Index, Patch               |               | Comments               |           |
 | Third Parties           | Get, Index, Patch               | Supported     |                        |           |
 | Third Party Risks       | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
+| BusinessContinuity      | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
 
 ## Disclaimer
 
