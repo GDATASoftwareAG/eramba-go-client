@@ -112,4 +112,3 @@ formatters:
     paths:
       - third_party$
       - builtin$
-      - examples$
