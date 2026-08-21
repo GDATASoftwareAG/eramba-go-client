@@ -9,23 +9,21 @@ type ThirdPartyRisk struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 
-	RiskMitigationStrategyId       int32                  `json:"risk_mitigation_strategy_id"`
-	RiskAppetiteThresholdAnalysis  *RiskAppetiteThreshold `json:"risk_appetite_threshold_analysis,omitempty"`
-	RiskAppetiteThresholdTreatment *RiskAppetiteThreshold `json:"risk_appetite_threshold_treatment,omitempty"`
-	Risks1Type2                    RiskClassification     `json:"risk_classifications__third_party_risks_1__type_2"`
-	Risks1Type1                    RiskClassification     `json:"risk_classifications__third_party_risks_1__type_1"`
-	Risks0Type2                    RiskClassification     `json:"risk_classifications__third_party_risks_0__type_2"`
-	Risks0Type1                    RiskClassification     `json:"risk_classifications__third_party_risks_0__type_1"`
-	RiskScoreAnalysis              RiskScore              `json:"risk_score_analysis"`
-	RiskScoreTreatment             RiskScore              `json:"risk_score_treatment"`
-	SecurityServices               SecurityServices       `json:"security_services"`
-	Assets                         Assets                 `json:"assets"`
-	ThirdParties                   ThirdParties           `json:"third_parties"`
-	Threats                        string                 `json:"threats"`
-	Tags                           []Tag                  `json:"tags"`
-	RiskGrcContacts                []UserOrGroup          `json:"owners"`
-	RiskOriginatorContacts         []UserOrGroup          `json:"stakeholders"`
-	ThirdPartyReviews              []Review               `json:"third_party_risk_reviews"`
+	RiskMitigationStrategyId       int32                        `json:"risk_mitigation_strategy_id"`
+	RiskAppetiteThresholdAnalysis  *RiskAppetiteThreshold       `json:"risk_appetite_threshold_analysis,omitempty"`
+	RiskAppetiteThresholdTreatment *RiskAppetiteThreshold       `json:"risk_appetite_threshold_treatment,omitempty"`
+	RiskClassificationAnalysis     map[int32]RiskClassification `json:"-"`
+	RiskClassificationTreatment    map[int32]RiskClassification `json:"-"`
+	RiskScoreAnalysis              RiskScore                    `json:"risk_score_analysis"`
+	RiskScoreTreatment             RiskScore                    `json:"risk_score_treatment"`
+	SecurityServices               SecurityServices             `json:"security_services"`
+	Assets                         Assets                       `json:"assets"`
+	ThirdParties                   ThirdParties                 `json:"third_parties"`
+	Threats                        string                       `json:"threats"`
+	Tags                           []Tag                        `json:"tags"`
+	RiskGrcContacts                []UserOrGroup                `json:"owners"`
+	RiskOriginatorContacts         []UserOrGroup                `json:"stakeholders"`
+	Reviews                        []Review                     `json:"third_party_risk_reviews"`
 
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
 	VulnerabilityTags        []*OnlyId       `json:"vulnerability_tags"`
@@ -74,11 +72,21 @@ func (p *ThirdPartyRisk) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	p.CustomFields = customFields
+
+	rcAnalysis, rcTreatment, err := UnmarshalRiskClassification(FieldRiskClassificationsThirdPartyRisksPrefix, data)
+	if err != nil {
+		return err
+	}
+	p.RiskClassificationAnalysis = rcAnalysis
+	p.RiskClassificationTreatment = rcTreatment
+
 	return nil
 }
 
 func (p *ThirdPartyRisk) MarshalJSON() ([]byte, error) {
 	type Alias ThirdPartyRisk
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, p.CustomFields, ThirdPartyRiskSkippedFields)
+	extraFields := MarshalRiskClassification(
+		FieldRiskClassificationsThirdPartyRisksPrefix, p.RiskClassificationAnalysis, p.RiskClassificationTreatment)
+	return MarshalWithSpecialFields(aux, p.CustomFields, extraFields, ThirdPartyRiskSkippedFields)
 }

@@ -28,5 +28,5 @@ func (p *RiskException) Link(base string) string {
 func (p *RiskException) MarshalJSON() ([]byte, error) {
 	type Alias RiskException
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, CustomFields{}, RiskExceptionSkippedFields)
+	return MarshalWithSkippingFields(aux, RiskExceptionSkippedFields)
 }

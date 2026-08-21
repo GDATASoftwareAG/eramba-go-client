@@ -95,6 +95,15 @@ linters:
       - path: 'businesscontinuities\.go'
         linters:
           - dupl
+      - path: 'model/risk\.go'
+        linters:
+          - dupl
+      - path: 'model/thirdpartyrisk\.go'
+        linters:
+          - dupl
+      - path: 'model/businesscontinuities\.go'
+        linters:
+          - dupl
 formatters:
   enable:
     - gofumpt

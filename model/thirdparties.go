@@ -54,5 +54,5 @@ func (p *ThirdParty) UnmarshalJSON(data []byte) error {
 func (p *ThirdParty) MarshalJSON() ([]byte, error) {
 	type Alias ThirdParty
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, p.CustomFields, []string{})
+	return MarshalWithSpecialFields(aux, p.CustomFields, make(map[string]any), []string{})
 }

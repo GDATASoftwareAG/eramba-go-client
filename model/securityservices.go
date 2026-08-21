@@ -42,5 +42,5 @@ func (p *SecurityService) Link(base string) string {
 func (p *SecurityService) MarshalJSON() ([]byte, error) {
 	type Alias SecurityService
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, CustomFields{}, RiskExceptionSkippedFields)
+	return MarshalWithSkippingFields(aux, RiskExceptionSkippedFields)
 }

@@ -61,7 +61,7 @@ var SecurityPolicySkippedFields = []string{
 func (p *SecurityPolicy) MarshalJSON() ([]byte, error) {
 	type Alias SecurityPolicy
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, CustomFields{}, SecurityPolicySkippedFields)
+	return MarshalWithSkippingFields(aux, SecurityPolicySkippedFields)
 }
 
 type SecurityPolicyReview struct {
@@ -85,7 +85,7 @@ var SecurityPolicyReviewSkippedFields = []string{
 func (p *SecurityPolicyReview) MarshalJSON() ([]byte, error) {
 	type Alias SecurityPolicyReview
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, CustomFields{}, SecurityPolicyReviewSkippedFields)
+	return MarshalWithSkippingFields(aux, SecurityPolicyReviewSkippedFields)
 }
 
 type PolicyDescription struct {

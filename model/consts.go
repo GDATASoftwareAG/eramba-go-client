@@ -9,4 +9,8 @@ const (
 	FieldRiskScoreTreatment             = "risk_score_treatment"
 	FieldRiskAppetiteThresholdTreatment = "risk_appetite_threshold_treatment"
 	FieldRiskAppetiteThresholdAnalysis  = "risk_appetite_threshold_analysis"
+
+	FieldRiskClassificationsRisksPrefix                = "risk_classifications__risks"
+	FieldRiskClassificationsBusinessContinuitiesPrefix = "risk_classifications__business_continuities"
+	FieldRiskClassificationsThirdPartyRisksPrefix      = "risk_classifications__third_party_risks"
 )

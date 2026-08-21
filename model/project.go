@@ -65,7 +65,7 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 func (p *Project) MarshalJSON() ([]byte, error) {
 	type Alias Project
 	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, p.CustomFields, ProjectSkippedFields)
+	return MarshalWithSpecialFields(aux, p.CustomFields, make(map[string]any), ProjectSkippedFields)
 }
 
 func (p *Project) GetId() int32 {

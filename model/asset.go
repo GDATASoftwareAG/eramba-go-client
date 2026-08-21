@@ -69,36 +69,9 @@ var AssetSkippedFields = []string{
 }
 
 func (p *Asset) MarshalJSON() ([]byte, error) {
-	return AssetMarshalWithSkippingFields(p, CustomFields{}, AssetSkippedFields)
-}
-
-func AssetMarshalWithSkippingFields(
-	p *Asset,
-	customFields CustomFields,
-	skippedFields []string,
-) ([]byte, error) {
-	type Alias Asset
-	aux := Alias(*p)
-	data, err := json.Marshal(aux)
-	if err != nil {
-		return nil, err
-	}
-
-	// Turn into map for merging
-	out := make(map[string]any)
-	if err := json.Unmarshal(data, &out); err != nil {
-		return nil, err
-	}
-	for _, k := range skippedFields {
-		delete(out, k)
-	}
+	extraFields := make(map[string]any)
 	for _, classification := range p.AssetClassifications {
-		out[fmt.Sprintf("asset_classifications_%d", classification.TypeId)] = []int32{classification.Id}
+		extraFields[fmt.Sprintf("asset_classifications_%d", classification.TypeId)] = []int32{classification.Id}
 	}
-	// Add extra fields back
-	for k, v := range customFields {
-		out[k] = v
-	}
-
-	return json.Marshal(out)
+	return MarshalWithSpecialFields(p, CustomFields{}, extraFields, AssetSkippedFields)
 }

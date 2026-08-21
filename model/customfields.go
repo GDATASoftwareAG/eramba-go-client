@@ -108,7 +108,15 @@ func unmarshalSingleCustomField(data []byte) (*CustomField, error) {
 
 func MarshalWithSkippingFields[T any](
 	p T,
+	skippedFields []string,
+) ([]byte, error) {
+	return MarshalWithSpecialFields(p, CustomFields{}, make(map[string]any), skippedFields)
+}
+
+func MarshalWithSpecialFields[T any](
+	p T,
 	customFields CustomFields,
+	extraFields map[string]any,
 	skippedFields []string,
 ) ([]byte, error) {
 	data, err := json.Marshal(p)
@@ -132,6 +140,9 @@ func MarshalWithSkippingFields[T any](
 		if v.MultiValue != nil {
 			out[k] = v.MultiValue
 		}
+	}
+	for k, v := range extraFields {
+		out[k] = v
 	}
 
 	return json.Marshal(out)
