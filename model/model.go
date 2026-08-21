@@ -92,6 +92,8 @@ func convertToTypeId(prefix, key string) (id string, typeId int32, err error) {
 func UnmarshalRiskClassification(
 	prefix string, data []byte,
 ) (analysis, treatment map[int32]RiskClassification, err error) {
+	analysis = map[int32]RiskClassification{}
+	treatment = map[int32]RiskClassification{}
 	baseFields := map[string]any{}
 	if err := json.Unmarshal(data, &baseFields); err != nil {
 		return analysis, treatment, err
