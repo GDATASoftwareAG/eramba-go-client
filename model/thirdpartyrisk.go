@@ -24,7 +24,7 @@ type ThirdPartyRisk struct {
 	RiskGrcContacts                []UserOrGroup                `json:"owners"`
 	RiskOriginatorContacts         []UserOrGroup                `json:"stakeholders"`
 	Reviews                        []Review                     `json:"third_party_risk_reviews"`
-	Reivew                         *ErambaDate                  `json:"review"`
+	Review                         *ErambaDate                  `json:"review"`
 
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
 	VulnerabilityTags        []*OnlyId       `json:"vulnerability_tags"`
