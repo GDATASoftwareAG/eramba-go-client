@@ -22,6 +22,7 @@ type BusinessContinuity struct {
 	RiskGrcContacts                []UserOrGroup                `json:"owners"`
 	RiskOriginatorContacts         []UserOrGroup                `json:"stakeholders"`
 	Reviews                        []Review                     `json:"business_continuity_reviews"`
+	Reivew                         *ErambaDate                  `json:"review"`
 
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
 	VulnerabilityTags        []*OnlyId       `json:"vulnerability_tags"`
