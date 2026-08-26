@@ -14,16 +14,16 @@ Minimal requirement is Eramba 3.28.0.
 | Assets                  | Get, Index, Patch, Post, Delete |               | Comments               | Supported |
 | Groups                  | Get, Index                      |               |                        |           |
 | Users                   | Get, Index                      |               |                        |           |
-| Security Policies       | Get, Index, Patch, Post         |               |                        |           |
+| Security Policies       | Get, Index, Patch, Post, Delete |               |                        |           |
 | Security Policy Reviews | Get, Index, Patch, Post, Delete |               |                        |           |
-| Projects                | Index, Patch, Post              | Supported     | Comments               |           |
-| Risk Exceptions         | Get, Index, Patch, Post         |               |                        |           |
-| Risks                   | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
+| Projects                | Get, Index, Patch, Post, Delete | Supported     | Comments               |           |
+| Risk Exceptions         | Get, Index, Patch, Post, Delete |               |                        |           |
+| Risks                   | Get, Index, Patch, Post, Delete | Supported     | Comments               | Supported |
 | Risk Threats            | Get, Index                      |               |                        |           |
-| Security Services       | Get, Index, Patch               |               | Comments               |           |
-| Third Parties           | Get, Index, Patch               | Supported     |                        |           |
-| Third Party Risks       | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
-| BusinessContinuity      | Get, Index, Patch, Post         | Supported     | Comments               | Supported |
+| Security Services       | Get, Index, Patch, Post, Delete |               | Comments               |           |
+| Third Parties           | Get, Index, Patch, Post, Delete | Supported     |                        |           |
+| Third Party Risks       | Get, Index, Patch, Post, Delete | Supported     | Comments               | Supported |
+| BusinessContinuity      | Get, Index, Patch, Post, Delete | Supported     | Comments               | Supported |
 
 ## Disclaimer
 

@@ -2,12 +2,18 @@ package model
 
 import "fmt"
 
+var _ ErambaType = (*User)(nil)
+
 type User struct {
 	Id      int32   `json:"id"`
 	Name    string  `json:"name"`
 	Surname string  `json:"surname"`
 	Email   string  `json:"email"`
 	Groups  []Group `json:"groups,omitempty"`
+}
+
+func (p *User) Link(base string) string {
+	return ErambaViewLink(base, "users", p.Id)
 }
 
 func (p *User) GetId() int32 {

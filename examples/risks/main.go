@@ -11,16 +11,16 @@ func main() {
 	client := utils.CreateClientFromEnv()
 	ctx := context.Background()
 
-	utils.IterateItems(ctx, client.GetRisks)
-	reviews := client.RiskReviews()
-	utils.IterateItems(ctx, reviews.GetReviews)
+	utils.IterateItems(ctx, client.Risks().GetAll)
+	reviews := client.Risks().Reviews()
+	utils.IterateItems(ctx, reviews.GetAll)
 
-	utils.IterateItems(ctx, client.GetThirdPartyRisks)
+	utils.IterateItems(ctx, client.ThirdPartyRisks().GetAll)
 
-	reviews = client.ThirdPartyRiskReviews()
-	utils.IterateItems(ctx, reviews.GetReviews)
+	reviews = client.ThirdPartyRisks().Reviews()
+	utils.IterateItems(ctx, reviews.GetAll)
 
-	utils.IterateItems(ctx, client.GetBusinessContinuities)
-	reviews = client.BusinessContinuityReviews()
-	utils.IterateItems(ctx, reviews.GetReviews)
+	utils.IterateItems(ctx, client.BusinessContinuities().GetAll)
+	reviews = client.BusinessContinuities().Reviews()
+	utils.IterateItems(ctx, reviews.GetAll)
 }

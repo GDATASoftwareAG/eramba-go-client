@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/gdatasoftwareag/eramba-go-client/model"
 )
 
 const (
@@ -195,4 +197,64 @@ func (a *Client) postOrPatchJsonByPath[K any](
 	}
 
 	return &res.Data, nil
+}
+
+type GetClient[K any] struct {
+	client *Client
+	path   string
+}
+
+func (a *GetClient[K]) Get(ctx context.Context, id int32) (K, error) {
+	return a.client.getDataById[K](ctx, a.path, id)
+}
+
+func (a *GetClient[K]) GetAll(ctx context.Context) ([]K, error) {
+	return a.client.getAllData[K](ctx, fmt.Sprintf("%s/index", a.path))
+}
+
+type GetAndPatchClient[K any] struct {
+	GetClient[K]
+}
+
+func (a *GetAndPatchClient[K]) Post(ctx context.Context, data *K) (*K, error) {
+	return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, fmt.Sprintf("%s/add", a.path), data)
+}
+
+func (a *GetAndPatchClient[K]) Patch(
+	ctx context.Context,
+	id int32,
+	data *K,
+) (*K, error) {
+	return a.client.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("%s/%d", a.path, id), data)
+}
+
+func (a *GetAndPatchClient[K]) Delete(ctx context.Context, id int32) error {
+	return a.client.deleteById(ctx, a.path, id)
+}
+
+type GetAndPatchClientWithComment[K any] struct {
+	GetAndPatchClient[K]
+}
+
+func (a *GetAndPatchClientWithComment[K]) Comments() *CommentsClient {
+	return &CommentsClient{
+		client: a.client,
+		path:   a.path,
+	}
+}
+
+type GetAndPatchClientWithCommentAndReview[K any] struct {
+	GetAndPatchClientWithComment[K]
+	pathReview string
+}
+
+func (a *GetAndPatchClientWithCommentAndReview[K]) Reviews() *ReviewsClient {
+	return &ReviewsClient{
+		client: a.client,
+		path:   a.pathReview,
+	}
+}
+
+type ReviewsClient struct {
+	GetAndPatchClient[model.Review]
 }
