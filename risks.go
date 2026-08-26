@@ -9,19 +9,19 @@ import (
 )
 
 func (a *Client) GetRisk(ctx context.Context, id int32) (model.Risk, error) {
-	return getDataById[model.Risk](ctx, "risks", id, a.getByPath)
+	return a.getDataById[model.Risk](ctx, "risks", id)
 }
 
 func (a *Client) GetRisks(ctx context.Context) ([]model.Risk, error) {
-	return getAllData[model.Risk](ctx, "risks/index", a.getByPath)
+	return a.getAllData[model.Risk](ctx, "risks/index")
 }
 
 func (a *Client) PostRisk(ctx context.Context, data *model.Risk) (*model.Risk, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "risks/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "risks/add", data)
 }
 
 func (a *Client) PatchRisk(ctx context.Context, id int32, data *model.Risk) (*model.Risk, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("risks/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("risks/%d", id), data)
 }
 
 func (a *Client) RiskComments() *CommentsClient {

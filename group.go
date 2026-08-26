@@ -7,9 +7,9 @@ import (
 )
 
 func (a *Client) GetGroup(ctx context.Context, id int32) (model.Group, error) {
-	return getDataById[model.Group](ctx, "groups", id, a.getByPath)
+	return a.getDataById[model.Group](ctx, "groups", id)
 }
 
 func (a *Client) GetGroups(ctx context.Context) ([]model.Group, error) {
-	return getAllData[model.Group](ctx, "groups/index", a.getByPath)
+	return a.getAllData[model.Group](ctx, "groups/index")
 }

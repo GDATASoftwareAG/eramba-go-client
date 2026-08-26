@@ -9,11 +9,11 @@ import (
 )
 
 func (a *Client) GetSecurityService(ctx context.Context, id int32) (model.SecurityService, error) {
-	return getDataById[model.SecurityService](ctx, "security-services", id, a.getByPath)
+	return a.getDataById[model.SecurityService](ctx, "security-services", id)
 }
 
 func (a *Client) GetSecurityServices(ctx context.Context) ([]model.SecurityService, error) {
-	return getAllData[model.SecurityService](ctx, "security-services/index", a.getByPath)
+	return a.getAllData[model.SecurityService](ctx, "security-services/index")
 }
 
 func (a *Client) PatchSecurityService(
@@ -21,7 +21,7 @@ func (a *Client) PatchSecurityService(
 	id int32,
 	data *model.SecurityService,
 ) (*model.SecurityService, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-services/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-services/%d", id), data)
 }
 
 func (a *Client) SecurityServiceComments() *CommentsClient {

@@ -9,15 +9,15 @@ import (
 )
 
 func (a *Client) GetProjects(ctx context.Context) ([]model.Project, error) {
-	return getAllData[model.Project](ctx, "projects/index", a.getByPath)
+	return a.getAllData[model.Project](ctx, "projects/index")
 }
 
 func (a *Client) PostProject(ctx context.Context, data *model.Project) (*model.Project, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "projects/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "projects/add", data)
 }
 
 func (a *Client) PatchProject(ctx context.Context, id int32, data *model.Project) (*model.Project, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("projects/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("projects/%d", id), data)
 }
 
 func (a *Client) ProjectComments() *CommentsClient {

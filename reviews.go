@@ -14,11 +14,11 @@ type ReviewsClient struct {
 }
 
 func (a *ReviewsClient) GetReviews(ctx context.Context) ([]model.Review, error) {
-	return getAllData[model.Review](ctx, fmt.Sprintf("%s/index", a.path), a.client.getByPath)
+	return a.client.getAllData[model.Review](ctx, fmt.Sprintf("%s/index", a.path))
 }
 
 func (a *ReviewsClient) GetReview(ctx context.Context, id int32) (model.Review, error) {
-	return getDataById[model.Review](ctx, a.path, id, a.client.getByPath)
+	return a.client.getDataById[model.Review](ctx, a.path, id)
 }
 
 func (a *ReviewsClient) DeleteReview(ctx context.Context, id int32) error {
@@ -26,17 +26,15 @@ func (a *ReviewsClient) DeleteReview(ctx context.Context, id int32) error {
 }
 
 func (a *ReviewsClient) PostReview(ctx context.Context, data *model.Review) (*model.Review, error) {
-	return postOrPatchJsonByPath(
+	return a.client.postOrPatchJsonByPath(
 		ctx, http.MethodPost,
 		fmt.Sprintf("%s/add", a.path),
-		data,
-		a.client.postOrPatchJsonByPath)
+		data)
 }
 
 func (a *ReviewsClient) PatchReview(ctx context.Context, id int32, data *model.Review) (*model.Review, error) {
-	return postOrPatchJsonByPath(
+	return a.client.postOrPatchJsonByPath(
 		ctx, http.MethodPatch,
 		fmt.Sprintf("%s/%d", a.path, id),
-		data,
-		a.client.postOrPatchJsonByPath)
+		data)
 }

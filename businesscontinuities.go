@@ -9,15 +9,15 @@ import (
 )
 
 func (a *Client) GetBusinessContinuity(ctx context.Context, id int32) (model.BusinessContinuity, error) {
-	return getDataById[model.BusinessContinuity](ctx, "business-continuities", id, a.getByPath)
+	return a.getDataById[model.BusinessContinuity](ctx, "business-continuities", id)
 }
 
 func (a *Client) GetBusinessContinuities(ctx context.Context) ([]model.BusinessContinuity, error) {
-	return getAllData[model.BusinessContinuity](ctx, "business-continuities/index", a.getByPath)
+	return a.getAllData[model.BusinessContinuity](ctx, "business-continuities/index")
 }
 
 func (a *Client) PostBusinessContinuity(ctx context.Context, data *model.BusinessContinuity) (*model.BusinessContinuity, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "business-continuities/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "business-continuities/add", data)
 }
 
 func (a *Client) PatchBusinessContinuity(
@@ -25,7 +25,7 @@ func (a *Client) PatchBusinessContinuity(
 	id int32,
 	data *model.BusinessContinuity,
 ) (*model.BusinessContinuity, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("business-continuities/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("business-continuities/%d", id), data)
 }
 
 func (a *Client) BusinessContinuityComments() *CommentsClient {
