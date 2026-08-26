@@ -7,9 +7,9 @@ import (
 )
 
 func (a *Client) GetUser(ctx context.Context, id int32) (model.User, error) {
-	return getDataById[model.User](ctx, "users", id, a.getByPath)
+	return a.getDataById[model.User](ctx, "users", id)
 }
 
 func (a *Client) GetUsers(ctx context.Context) ([]model.User, error) {
-	return getAllData[model.User](ctx, "users/index", a.getByPath)
+	return a.getAllData[model.User](ctx, "users/index")
 }

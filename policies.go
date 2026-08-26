@@ -9,18 +9,18 @@ import (
 )
 
 func (a *Client) GetSecurityPolicies(ctx context.Context) ([]model.SecurityPolicy, error) {
-	return getAllData[model.SecurityPolicy](ctx, "security-policies/index", a.getByPath)
+	return a.getAllData[model.SecurityPolicy](ctx, "security-policies/index")
 }
 
 func (a *Client) GetSecurityPolicy(ctx context.Context, id int32) (model.SecurityPolicy, error) {
-	return getDataById[model.SecurityPolicy](ctx, "security-policies", id, a.getByPath)
+	return a.getDataById[model.SecurityPolicy](ctx, "security-policies", id)
 }
 
 func (a *Client) PostSecurityPolicy(
 	ctx context.Context,
 	data *model.SecurityPolicy,
 ) (*model.SecurityPolicy, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "security-policies/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "security-policies/add", data)
 }
 
 func (a *Client) PatchSecurityPolicy(
@@ -28,15 +28,15 @@ func (a *Client) PatchSecurityPolicy(
 	id int32,
 	data *model.SecurityPolicy,
 ) (*model.SecurityPolicy, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-policies/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-policies/%d", id), data)
 }
 
 func (a *Client) GetSecurityPolicyReviews(ctx context.Context) ([]model.SecurityPolicyReview, error) {
-	return getAllData[model.SecurityPolicyReview](ctx, "security-policy-reviews/index", a.getByPath)
+	return a.getAllData[model.SecurityPolicyReview](ctx, "security-policy-reviews/index")
 }
 
 func (a *Client) GetSecurityPolicyReview(ctx context.Context, id int32) (model.SecurityPolicyReview, error) {
-	return getDataById[model.SecurityPolicyReview](ctx, "security-policy-reviews", id, a.getByPath)
+	return a.getDataById[model.SecurityPolicyReview](ctx, "security-policy-reviews", id)
 }
 
 func (a *Client) PatchSecurityPolicyReview(
@@ -44,14 +44,14 @@ func (a *Client) PatchSecurityPolicyReview(
 	id int32,
 	data *model.SecurityPolicyReview,
 ) (*model.SecurityPolicyReview, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-policy-reviews/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("security-policy-reviews/%d", id), data)
 }
 
 func (a *Client) PostSecurityPolicyReview(
 	ctx context.Context,
 	data *model.SecurityPolicyReview,
 ) (*model.SecurityPolicyReview, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "security-policy-reviews/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "security-policy-reviews/add", data)
 }
 
 func (a *Client) DeleteSecurityPolicyReview(ctx context.Context, id int32) error {

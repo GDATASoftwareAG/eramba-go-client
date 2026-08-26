@@ -9,15 +9,15 @@ import (
 )
 
 func (a *Client) GetThirdPartyRisk(ctx context.Context, id int32) (model.ThirdPartyRisk, error) {
-	return getDataById[model.ThirdPartyRisk](ctx, "third-party-risks", id, a.getByPath)
+	return a.getDataById[model.ThirdPartyRisk](ctx, "third-party-risks", id)
 }
 
 func (a *Client) GetThirdPartyRisks(ctx context.Context) ([]model.ThirdPartyRisk, error) {
-	return getAllData[model.ThirdPartyRisk](ctx, "third-party-risks/index", a.getByPath)
+	return a.getAllData[model.ThirdPartyRisk](ctx, "third-party-risks/index")
 }
 
 func (a *Client) PostThirdPartyRisk(ctx context.Context, data *model.ThirdPartyRisk) (*model.ThirdPartyRisk, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPost, "third-party-risks/add", data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPost, "third-party-risks/add", data)
 }
 
 func (a *Client) PatchThirdPartyRisk(
@@ -25,7 +25,7 @@ func (a *Client) PatchThirdPartyRisk(
 	id int32,
 	data *model.ThirdPartyRisk,
 ) (*model.ThirdPartyRisk, error) {
-	return postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("third-party-risks/%d", id), data, a.postOrPatchJsonByPath)
+	return a.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("third-party-risks/%d", id), data)
 }
 
 func (a *Client) ThirdPartyRiskComments() *CommentsClient {

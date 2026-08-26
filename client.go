@@ -67,7 +67,7 @@ func (a *Client) getByPath(ctx context.Context, path string) (io.ReadCloser, err
 	return resp.Body, nil
 }
 
-func (a *Client) postOrPatchJsonByPath(ctx context.Context, method, path string, data []byte) (io.ReadCloser, error) {
+func (a *Client) postByPath(ctx context.Context, method, path string, data []byte) (io.ReadCloser, error) {
 	req, err := http.NewRequestWithContext(ctx, method, fmt.Sprintf("%s/%s", a.url, path), bytes.NewReader(data))
 	if err != nil {
 		return nil, err
@@ -110,22 +110,20 @@ func (a *Client) deleteById(ctx context.Context, path string, id int32) error {
 	return nil
 }
 
-func getDataById[K any](
+func (a *Client) getDataById[K any](
 	ctx context.Context,
 	path string,
 	id int32,
-	getByPath func(ctx context.Context, path string) (io.ReadCloser, error),
 ) (K, error) {
-	return getData[K](ctx, fmt.Sprintf("%s/%d", path, id), getByPath)
+	return a.getData[K](ctx, fmt.Sprintf("%s/%d", path, id))
 }
 
-func getData[K any](
+func (a *Client) getData[K any](
 	ctx context.Context,
 	path string,
-	getByPath func(ctx context.Context, path string) (io.ReadCloser, error),
 ) (K, error) {
 	res := responseSingle[K]{}
-	body, err := getByPath(ctx, path)
+	body, err := a.getByPath(ctx, path)
 	if err != nil {
 		return res.Data, err
 	}
@@ -138,15 +136,14 @@ func getData[K any](
 	return res.Data, nil
 }
 
-func getAllData[K any](
+func (a *Client) getAllData[K any](
 	ctx context.Context,
 	path string,
-	getByPath func(ctx context.Context, path string) (io.ReadCloser, error),
 ) ([]K, error) {
 	hasNextPage := true
 	risks := make([]K, 0)
 	for i := 1; hasNextPage; i++ {
-		res, err := getDataForPagination[K](ctx, path, i, getByPath)
+		res, err := a.getDataForPagination[K](ctx, path, i)
 		if err != nil {
 			return risks, err
 		}
@@ -156,14 +153,13 @@ func getAllData[K any](
 	return risks, nil
 }
 
-func getDataForPagination[K any](
+func (a *Client) getDataForPagination[K any](
 	ctx context.Context,
 	path string,
 	i int,
-	getByPath func(ctx context.Context, path string) (io.ReadCloser, error),
 ) (responseList[K], error) {
 	res := responseList[K]{}
-	body, err := getByPath(ctx, fmt.Sprintf("%s?limit=%d&page=%d", path, PageSize, i))
+	body, err := a.getByPath(ctx, fmt.Sprintf("%s?limit=%d&page=%d", path, PageSize, i))
 	if err != nil {
 		return res, err
 	}
@@ -176,17 +172,16 @@ func getDataForPagination[K any](
 	return res, nil
 }
 
-func postOrPatchJsonByPath[K any](
+func (a *Client) postOrPatchJsonByPath[K any](
 	ctx context.Context,
 	method, path string,
 	data *K,
-	postByPath func(ctx context.Context, method, path string, data []byte) (io.ReadCloser, error),
 ) (*K, error) {
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
-	body, err := postByPath(ctx, method, path, dataBytes)
+	body, err := a.postByPath(ctx, method, path, dataBytes)
 	if err != nil {
 		return nil, err
 	}
