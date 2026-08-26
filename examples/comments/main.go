@@ -15,6 +15,6 @@ func main() {
 	utils.LoadEnvs()
 	client := utils.CreateClientFromEnv()
 	ctx := context.Background()
-	risks := client.RiskComments()
+	risks := client.Risks().Comments()
 	utils.IterateItems(ctx, func(ctx context.Context) ([]model.Comment, error) { return risks.GetComments(ctx, RisksTestId) })
 }
