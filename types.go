@@ -62,8 +62,8 @@ func (a *Client) SecurityServices() *GetAndPatchClientWithComment[model.Security
 	}
 }
 
-func (a *Client) RiskThreats() *GetClient[model.Group] {
-	return &GetClient[model.Group]{
+func (a *Client) RiskThreats() *GetClient[model.RiskThreat] {
+	return &GetClient[model.RiskThreat]{
 		client: a,
 		path:   "risk-threats",
 	}
