@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -66,6 +65,9 @@ func (a *Client) getByPath(ctx context.Context, path string) (io.ReadCloser, err
 	if err != nil {
 		return nil, err
 	}
+	if resp.StatusCode >= http.StatusBadRequest {
+		return nil, a.errorHandling(resp, http.MethodGet)
+	}
 	return resp.Body, nil
 }
 
@@ -82,15 +84,7 @@ func (a *Client) postByPath(ctx context.Context, method, path string, data []byt
 		return nil, err
 	}
 	if resp.StatusCode >= http.StatusBadRequest {
-		defer resp.Body.Close()
-
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-
-		slog.Error(fmt.Sprintf("Failed %s", method), "body", body)
-		return nil, fmt.Errorf("failed to %s", method)
+		return nil, a.errorHandling(resp, method)
 	}
 	return resp.Body, nil
 }
@@ -107,9 +101,20 @@ func (a *Client) deleteById(ctx context.Context, path string, id int32) error {
 		return err
 	}
 	if resp.StatusCode >= http.StatusBadRequest {
-		return errors.New("failed to delete")
+		return a.errorHandling(resp, http.MethodDelete)
 	}
 	return nil
+}
+
+func (a *Client) errorHandling(resp *http.Response, method string) error {
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	slog.Error(fmt.Sprintf("failed %s", method), "body", body, "url", resp.Request.URL.String())
+	return fmt.Errorf("unexpected status code: %d for method: %s", resp.StatusCode, method)
 }
 
 func (a *Client) getDataById[K any](
