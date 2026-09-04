@@ -1,7 +1,16 @@
 package model
 
+import "encoding/json"
+
 var RiskExceptionSkippedFields = []string{
 	FieldId,
+}
+
+type RiskExceptions []*RiskException
+
+func (p RiskExceptions) MarshalJSON() ([]byte, error) {
+	list := extractPatchListId(p)
+	return json.Marshal(list)
 }
 
 type RiskException struct {

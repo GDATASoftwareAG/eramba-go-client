@@ -28,7 +28,7 @@ type Risk struct {
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
 	VulnerabilityTags        []*OnlyId       `json:"vulnerability_tags"`
 	Vulnerabilities          string          `json:"vulnerabilities"`
-	RiskExceptions           []*OnlyId       `json:"risk_exceptions"`
+	RiskExceptions           RiskExceptions  `json:"risk_exceptions"`
 	SecurityPoliciesIncident []*OnlyId       `json:"security_policies_incident"`
 	Policies                 SecurityPolices `json:"security_policies"`
 	PoliciesTreatment        SecurityPolices `json:"security_policies_treatment"`
