@@ -7,6 +7,7 @@ func (a *Client) Assets() *GetAndPatchClientWithCommentAndReview[model.Asset] {
 		client:     a,
 		path:       "assets",
 		pathReview: "asset-reviews",
+		model:      "Assets",
 	}
 }
 
@@ -15,6 +16,7 @@ func (a *Client) BusinessContinuities() *GetAndPatchClientWithCommentAndReview[m
 		client:     a,
 		path:       "business-continuities",
 		pathReview: "business-continuity-reviews",
+		model:      "BusinessContinuities",
 	}
 }
 
@@ -30,6 +32,7 @@ func (a *Client) Risks() *GetAndPatchClientWithCommentAndReview[model.Risk] {
 		client:     a,
 		path:       "risks",
 		pathReview: "risk-reviews",
+		model:      "Risks",
 	}
 }
 
@@ -38,6 +41,7 @@ func (a *Client) ThirdPartyRisks() *GetAndPatchClientWithCommentAndReview[model.
 		client:     a,
 		path:       "third-party-risks",
 		pathReview: "third-party-risk-reviews",
+		model:      "ThirdPartyRisks",
 	}
 }
 

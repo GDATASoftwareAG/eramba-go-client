@@ -251,15 +251,18 @@ func (a *GetAndPatchClientWithComment[K]) Comments() *CommentsClient {
 type GetAndPatchClientWithCommentAndReview[K any] struct {
 	GetAndPatchClientWithComment[K]
 	pathReview string
+	model      string
 }
 
 func (a *GetAndPatchClientWithCommentAndReview[K]) Reviews() *ReviewsClient {
 	return &ReviewsClient{
+		Model:  a.model,
 		client: a.client,
 		path:   a.pathReview,
 	}
 }
 
 type ReviewsClient struct {
+	Model string
 	GetAndPatchClient[model.Review]
 }
