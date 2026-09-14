@@ -23,6 +23,7 @@ func (c CustomFields) SetString(key, value string) {
 		}
 	} else {
 		field.Value = value
+		c[key] = field
 	}
 }
 
@@ -43,6 +44,7 @@ func (c CustomFields) SetInt(key string, value int) {
 		}
 	} else {
 		field.Value = value
+		c[key] = field
 	}
 }
 
