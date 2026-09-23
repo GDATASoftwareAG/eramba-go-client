@@ -126,6 +126,20 @@ func UnmarshalRiskClassification(
 	return analysis, treatment, nil
 }
 
+func UnmarshalWithCustomFieldsAndRiskClassification[T any](
+	data []byte, alias *T, prefix string,
+) (customFields CustomFields, analysis, treatment map[int32]RiskClassification, err error) {
+	customFields, err = UnmarshalWithCustomFields(data, alias)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	analysis, treatment, err = UnmarshalRiskClassification(prefix, data)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	return customFields, analysis, treatment, nil
+}
+
 func MarshalRiskClassification(
 	s string,
 	classificationsAnalysis, classificationsTreatment map[int32]RiskClassification,

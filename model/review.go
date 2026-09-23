@@ -29,6 +29,5 @@ func (p *Review) After(review *Review) bool {
 
 func (p *Review) MarshalJSON() ([]byte, error) {
 	type Alias Review
-	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, ReviewSkippedFields)
+	return MarshalWithSkippingFields(Alias(*p), ReviewSkippedFields)
 }

@@ -1,6 +1,8 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var _ ErambaType = (*User)(nil)
 
@@ -10,6 +12,8 @@ type User struct {
 	Surname string  `json:"surname"`
 	Email   string  `json:"email"`
 	Groups  []Group `json:"groups,omitempty"`
+
+	CustomFields CustomFields `json:"-"`
 }
 
 func (p *User) Link(base string) string {
@@ -31,8 +35,17 @@ func (p *User) GenerateUserOrGroup() UserOrGroup {
 	}
 }
 
+func (p *User) UnmarshalJSON(data []byte) error {
+	type Alias User // avoid recursion
+	customFields, err := UnmarshalWithCustomFields(data, (*Alias)(p))
+	if err != nil {
+		return err
+	}
+	p.CustomFields = customFields
+	return nil
+}
+
 func (p *User) MarshalJSON() ([]byte, error) {
 	type Alias User
-	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, []string{})
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, map[string]any{}, []string{})
 }
