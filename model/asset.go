@@ -69,9 +69,10 @@ var AssetSkippedFields = []string{
 }
 
 func (p *Asset) MarshalJSON() ([]byte, error) {
+	type Alias Asset
 	extraFields := make(map[string]any)
 	for _, classification := range p.AssetClassifications {
 		extraFields[fmt.Sprintf("asset_classifications_%d", classification.TypeId)] = []int32{classification.Id}
 	}
-	return MarshalWithSpecialFields(p, CustomFields{}, extraFields, AssetSkippedFields)
+	return MarshalWithSpecialFields(Alias(*p), CustomFields{}, extraFields, AssetSkippedFields)
 }

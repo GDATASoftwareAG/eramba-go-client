@@ -108,6 +108,13 @@ func unmarshalSingleCustomField(data []byte) (*CustomField, error) {
 	}, nil
 }
 
+func UnmarshalWithCustomFields[T any](data []byte, alias *T) (CustomFields, error) {
+	if err := json.Unmarshal(data, alias); err != nil {
+		return nil, err
+	}
+	return UnmarshalCustomFields(data)
+}
+
 func MarshalWithSkippingFields[T any](
 	p T,
 	skippedFields []string,

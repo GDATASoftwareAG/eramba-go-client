@@ -45,16 +45,7 @@ type Project struct {
 
 func (p *Project) UnmarshalJSON(data []byte) error {
 	type Alias Project // avoid recursion
-	aux := &struct {
-		*Alias
-	}{
-		Alias: (*Alias)(p),
-	}
-
-	if err := json.Unmarshal(data, &aux.Alias); err != nil {
-		return err
-	}
-	customFields, err := UnmarshalCustomFields(data)
+	customFields, err := UnmarshalWithCustomFields(data, (*Alias)(p))
 	if err != nil {
 		return err
 	}
@@ -64,8 +55,7 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 
 func (p *Project) MarshalJSON() ([]byte, error) {
 	type Alias Project
-	aux := Alias(*p)
-	return MarshalWithSpecialFields(aux, p.CustomFields, make(map[string]any), ProjectSkippedFields)
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, make(map[string]any), ProjectSkippedFields)
 }
 
 func (p *Project) GetId() int32 {

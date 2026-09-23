@@ -1,9 +1,5 @@
 package model
 
-import (
-	"encoding/json"
-)
-
 type ThirdPartyRisk struct {
 	Id          int32  `json:"id"`
 	Title       string `json:"title"`
@@ -59,35 +55,20 @@ var ThirdPartyRiskSkippedFields = []string{
 
 func (p *ThirdPartyRisk) UnmarshalJSON(data []byte) error {
 	type Alias ThirdPartyRisk // avoid recursion
-	aux := &struct {
-		*Alias
-	}{
-		Alias: (*Alias)(p),
-	}
-
-	if err := json.Unmarshal(data, &aux.Alias); err != nil {
-		return err
-	}
-	customFields, err := UnmarshalCustomFields(data)
+	customFields, rcAnalysis, rcTreatment, err := UnmarshalWithCustomFieldsAndRiskClassification(
+		data, (*Alias)(p), FieldRiskClassificationsThirdPartyRisksPrefix)
 	if err != nil {
 		return err
 	}
 	p.CustomFields = customFields
-
-	rcAnalysis, rcTreatment, err := UnmarshalRiskClassification(FieldRiskClassificationsThirdPartyRisksPrefix, data)
-	if err != nil {
-		return err
-	}
 	p.RiskClassificationAnalysis = rcAnalysis
 	p.RiskClassificationTreatment = rcTreatment
-
 	return nil
 }
 
 func (p *ThirdPartyRisk) MarshalJSON() ([]byte, error) {
 	type Alias ThirdPartyRisk
-	aux := Alias(*p)
 	extraFields := MarshalRiskClassification(
 		FieldRiskClassificationsThirdPartyRisksPrefix, p.RiskClassificationAnalysis, p.RiskClassificationTreatment)
-	return MarshalWithSpecialFields(aux, p.CustomFields, extraFields, ThirdPartyRiskSkippedFields)
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, extraFields, ThirdPartyRiskSkippedFields)
 }

@@ -34,16 +34,7 @@ func (p *ThirdParty) Link(base string) string {
 
 func (p *ThirdParty) UnmarshalJSON(data []byte) error {
 	type Alias ThirdParty // avoid recursion
-	aux := &struct {
-		*Alias
-	}{
-		Alias: (*Alias)(p),
-	}
-
-	if err := json.Unmarshal(data, &aux.Alias); err != nil {
-		return err
-	}
-	customFields, err := UnmarshalCustomFields(data)
+	customFields, err := UnmarshalWithCustomFields(data, (*Alias)(p))
 	if err != nil {
 		return err
 	}
@@ -53,6 +44,5 @@ func (p *ThirdParty) UnmarshalJSON(data []byte) error {
 
 func (p *ThirdParty) MarshalJSON() ([]byte, error) {
 	type Alias ThirdParty
-	aux := Alias(*p)
-	return MarshalWithSpecialFields(aux, p.CustomFields, make(map[string]any), []string{})
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, make(map[string]any), []string{})
 }

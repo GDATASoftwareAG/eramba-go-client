@@ -1,9 +1,5 @@
 package model
 
-import (
-	"encoding/json"
-)
-
 type BusinessContinuity struct {
 	Id          int32  `json:"id"`
 	Title       string `json:"title"`
@@ -59,25 +55,12 @@ var BusinessContinuitySkippedFields = []string{
 
 func (p *BusinessContinuity) UnmarshalJSON(data []byte) error {
 	type Alias BusinessContinuity // avoid recursion
-	aux := &struct {
-		*Alias
-	}{
-		Alias: (*Alias)(p),
-	}
-
-	if err := json.Unmarshal(data, &aux.Alias); err != nil {
-		return err
-	}
-	customFields, err := UnmarshalCustomFields(data)
+	customFields, rcAnalysis, rcTreatment, err := UnmarshalWithCustomFieldsAndRiskClassification(
+		data, (*Alias)(p), FieldRiskClassificationsBusinessContinuitiesPrefix)
 	if err != nil {
 		return err
 	}
 	p.CustomFields = customFields
-
-	rcAnalysis, rcTreatment, err := UnmarshalRiskClassification(FieldRiskClassificationsBusinessContinuitiesPrefix, data)
-	if err != nil {
-		return err
-	}
 	p.RiskClassificationAnalysis = rcAnalysis
 	p.RiskClassificationTreatment = rcTreatment
 	return nil
@@ -85,8 +68,7 @@ func (p *BusinessContinuity) UnmarshalJSON(data []byte) error {
 
 func (p *BusinessContinuity) MarshalJSON() ([]byte, error) {
 	type Alias BusinessContinuity
-	aux := Alias(*p)
 	extraFields := MarshalRiskClassification(
 		FieldRiskClassificationsBusinessContinuitiesPrefix, p.RiskClassificationAnalysis, p.RiskClassificationTreatment)
-	return MarshalWithSpecialFields(aux, p.CustomFields, extraFields, BusinessContinuitySkippedFields)
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, extraFields, BusinessContinuitySkippedFields)
 }

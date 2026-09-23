@@ -26,6 +26,5 @@ func (p *Group) GenerateUserOrGroup() UserOrGroup {
 
 func (p *Group) MarshalJSON() ([]byte, error) {
 	type Alias Group
-	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, []string{})
+	return MarshalWithSkippingFields(Alias(*p), []string{})
 }

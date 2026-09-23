@@ -9,6 +9,13 @@ const (
 	SecurityServiceTypeProduction SecurityServiceType = 4
 )
 
+var SecurityServiceSkippedFields = []string{
+	FieldId,
+	FieldRisks,
+	FieldThirdPartyRisks,
+	FieldBusinessContinuities,
+}
+
 type SecurityServices []*SecurityService
 
 func (p SecurityServices) MarshalJSON() ([]byte, error) {
@@ -41,6 +48,5 @@ func (p *SecurityService) Link(base string) string {
 
 func (p *SecurityService) MarshalJSON() ([]byte, error) {
 	type Alias SecurityService
-	aux := Alias(*p)
-	return MarshalWithSkippingFields(aux, RiskExceptionSkippedFields)
+	return MarshalWithSkippingFields(Alias(*p), SecurityServiceSkippedFields)
 }
