@@ -20,13 +20,6 @@ func (a *Client) BusinessContinuities() *GetAndPatchClientWithCommentAndReview[m
 	}
 }
 
-func (a *Client) Groups() *GetClient[model.Group] {
-	return &GetClient[model.Group]{
-		client: a,
-		path:   "groups",
-	}
-}
-
 func (a *Client) Risks() *GetAndPatchClientWithCommentAndReview[model.Risk] {
 	return &GetAndPatchClientWithCommentAndReview[model.Risk]{
 		client:     a,
@@ -45,10 +38,19 @@ func (a *Client) ThirdPartyRisks() *GetAndPatchClientWithCommentAndReview[model.
 	}
 }
 
-func (a *Client) Users() *GetClient[model.User] {
-	return &GetClient[model.User]{
+func (a *Client) Groups() *GetAndPatchClient[model.Group] {
+	return &GetAndPatchClient[model.Group]{
+		v2:     true,
 		client: a,
-		path:   "users",
+		path:   "v2/groups",
+	}
+}
+
+func (a *Client) Users() *GetAndPatchClient[model.User] {
+	return &GetAndPatchClient[model.User]{
+		v2:     true,
+		client: a,
+		path:   "v2/users",
 	}
 }
 

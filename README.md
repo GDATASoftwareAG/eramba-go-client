@@ -12,8 +12,8 @@ Minimal requirement is Eramba 3.28.0.
 | Type                    | Methods                         | Custom Fields | Comments & Attachments | Reviews   |
 |-------------------------|---------------------------------|---------------|------------------------|-----------|
 | Assets                  | Get, Index, Patch, Post, Delete |               | Comments               | Supported |
-| Groups                  | Get, Index                      |               |                        |           |
-| Users                   | Get, Index                      |               |                        |           |
+| Groups (v2)             | Get, Index, Post, Delete        |               |                        |           |
+| Users (v2)              | Get, Index, Post, Delete        |               |                        |           |
 | Security Policies       | Get, Index, Patch, Post, Delete |               |                        |           |
 | Security Policy Reviews | Get, Index, Patch, Post, Delete |               |                        |           |
 | Projects                | Get, Index, Patch, Post, Delete | Supported     | Comments               |           |
