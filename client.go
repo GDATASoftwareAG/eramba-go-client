@@ -224,6 +224,9 @@ type GetAndPatchClient[K any] struct {
 }
 
 func (a *GetAndPatchClient[K]) Post(ctx context.Context, data *K) (*K, error) {
+	if a.v2 {
+		return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, a.path, data)
+	}
 	return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, fmt.Sprintf("%s/add", a.path), data)
 }
 
