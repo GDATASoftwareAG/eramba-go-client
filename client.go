@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -205,6 +206,7 @@ func (a *Client) postOrPatchJsonByPath[K any](
 }
 
 type GetClient[K any] struct {
+	v2     bool
 	client *Client
 	path   string
 }
@@ -230,6 +232,9 @@ func (a *GetAndPatchClient[K]) Patch(
 	id int32,
 	data *K,
 ) (*K, error) {
+	if a.v2 {
+		return nil, errors.New("not implemented")
+	}
 	return a.client.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("%s/%d", a.path, id), data)
 }
 

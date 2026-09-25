@@ -4,14 +4,30 @@ import (
 	"fmt"
 )
 
+var UserSkippedFields = []string{
+	FieldId,
+}
+
 var _ ErambaType = (*User)(nil)
 
 type User struct {
-	Id      int32   `json:"id"`
-	Name    string  `json:"name"`
-	Surname string  `json:"surname"`
-	Email   string  `json:"email"`
-	Groups  []Group `json:"groups,omitempty"`
+	Id      int32  `json:"id"`
+	Name    string `json:"name"`
+	Surname string `json:"surname"`
+	Email   string `json:"email"`
+	Login   string `json:"login"`
+	Status  int    `json:"status"`
+	Groups  Groups `json:"groups,omitempty"`
+
+	LocalAccount            bool `json:"local_account"`
+	ApiAllow                bool `json:"api_allow"`
+	MainPortal              bool `json:"main_portal"`
+	VendorAssessmentsPortal bool `json:"vendor_assessments_portal"`
+	AccountReviewsPortal    bool `json:"account_reviews_portal"`
+	AwarenessPortal         bool `json:"awareness_portal"`
+	PolicyPortal            bool `json:"policy_portal"`
+
+	UserTemplateId int `json:"user_template_id"`
 
 	CustomFields CustomFields `json:"-"`
 }
@@ -47,5 +63,5 @@ func (p *User) UnmarshalJSON(data []byte) error {
 
 func (p *User) MarshalJSON() ([]byte, error) {
 	type Alias User
-	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, map[string]any{}, []string{})
+	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, map[string]any{}, UserSkippedFields)
 }
