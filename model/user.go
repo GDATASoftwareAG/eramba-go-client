@@ -6,6 +6,7 @@ import (
 
 var UserSkippedFields = []string{
 	FieldId,
+	"user_template_id",
 }
 
 var _ ErambaType = (*User)(nil)
@@ -17,7 +18,7 @@ type User struct {
 	Email   string `json:"email"`
 	Login   string `json:"login"`
 	Status  int    `json:"status"`
-	Groups  Groups `json:"groups,omitempty"`
+	Groups  Groups `json:"groups"`
 
 	LocalAccount            bool `json:"local_account"`
 	ApiAllow                bool `json:"api_allow"`
