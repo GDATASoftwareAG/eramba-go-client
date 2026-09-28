@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -206,7 +205,6 @@ func (a *Client) postOrPatchJsonByPath[K any](
 }
 
 type GetClient[K any] struct {
-	v2     bool
 	client *Client
 	path   string
 }
@@ -224,9 +222,6 @@ type GetAndPatchClient[K any] struct {
 }
 
 func (a *GetAndPatchClient[K]) Post(ctx context.Context, data *K) (*K, error) {
-	if a.v2 {
-		return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, a.path, data)
-	}
 	return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, fmt.Sprintf("%s/add", a.path), data)
 }
 
@@ -235,13 +230,30 @@ func (a *GetAndPatchClient[K]) Patch(
 	id int32,
 	data *K,
 ) (*K, error) {
-	if a.v2 {
-		return nil, errors.New("not implemented")
-	}
 	return a.client.postOrPatchJsonByPath(ctx, http.MethodPatch, fmt.Sprintf("%s/%d", a.path, id), data)
 }
 
 func (a *GetAndPatchClient[K]) Delete(ctx context.Context, id int32) error {
+	return a.client.deleteById(ctx, a.path, id)
+}
+
+type ReadWriteClientV2[K any] struct {
+	GetClient[K]
+}
+
+func (a *ReadWriteClientV2[K]) Post(ctx context.Context, data *K) (*K, error) {
+	return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, a.path, data)
+}
+
+func (a *ReadWriteClientV2[K]) Put(
+	ctx context.Context,
+	id int32,
+	data *K,
+) (*K, error) {
+	return a.client.postOrPatchJsonByPath(ctx, http.MethodPut, fmt.Sprintf("%s/%d", a.path, id), data)
+}
+
+func (a *ReadWriteClientV2[K]) Delete(ctx context.Context, id int32) error {
 	return a.client.deleteById(ctx, a.path, id)
 }
 

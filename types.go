@@ -38,17 +38,15 @@ func (a *Client) ThirdPartyRisks() *GetAndPatchClientWithCommentAndReview[model.
 	}
 }
 
-func (a *Client) Groups() *GetAndPatchClient[model.Group] {
-	return &GetAndPatchClient[model.Group]{
-		v2:     true,
+func (a *Client) Groups() *ReadWriteClientV2[model.Group] {
+	return &ReadWriteClientV2[model.Group]{
 		client: a,
 		path:   "v2/groups",
 	}
 }
 
-func (a *Client) Users() *GetAndPatchClient[model.User] {
-	return &GetAndPatchClient[model.User]{
-		v2:     true,
+func (a *Client) Users() *ReadWriteClientV2[model.User] {
+	return &ReadWriteClientV2[model.User]{
 		client: a,
 		path:   "v2/users",
 	}

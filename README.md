@@ -10,10 +10,10 @@ Minimal requirement is Eramba 3.28.0.
 ## Supported APIs
 
 | Type                    | Methods                         | Custom Fields | Comments & Attachments | Reviews   |
-|-------------------------|---------------------------------|---------------|------------------------|-----------|
+| ----------------------- | ------------------------------- | ------------- | ---------------------- | --------- |
 | Assets                  | Get, Index, Patch, Post, Delete |               | Comments               | Supported |
-| Groups (v2)             | Get, Index, Post, Delete        |               |                        |           |
-| Users (v2)              | Get, Index, Post, Delete        |               |                        |           |
+| Groups (v2)             | Get, Index, Post, Put, Delete   |               |                        |           |
+| Users (v2)              | Get, Index, Post, Put, Delete   |               |                        |           |
 | Security Policies       | Get, Index, Patch, Post, Delete |               |                        |           |
 | Security Policy Reviews | Get, Index, Patch, Post, Delete |               |                        |           |
 | Projects                | Get, Index, Patch, Post, Delete | Supported     | Comments               |           |
