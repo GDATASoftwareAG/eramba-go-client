@@ -42,7 +42,7 @@ func (p *BusinessContinuity) GetId() int32 {
 }
 
 func (p *BusinessContinuity) Link(base string) string {
-	return ErambaViewLink(base, "risks", p.Id)
+	return ErambaViewLink(base, "business-continuities", p.Id)
 }
 
 var BusinessContinuitySkippedFields = []string{
