@@ -17,6 +17,7 @@ type BusinessContinuity struct {
 	Tags                           []Tag                        `json:"tags"`
 	RiskGrcContacts                []UserOrGroup                `json:"owners"`
 	RiskOriginatorContacts         []UserOrGroup                `json:"stakeholders"`
+	BusinessUnits                  []*OnlyId                    `json:"business_units"`
 	Reviews                        []Review                     `json:"business_continuity_reviews"`
 	Review                         *ErambaDate                  `json:"review"`
 
