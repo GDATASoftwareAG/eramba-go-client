@@ -22,6 +22,7 @@ type BusinessContinuity struct {
 
 	ThreatTags               []*OnlyId       `json:"threat_tags"`
 	VulnerabilityTags        []*OnlyId       `json:"vulnerability_tags"`
+	Impact                   string          `json:"impact"`
 	Vulnerabilities          string          `json:"vulnerabilities"`
 	RiskExceptions           RiskExceptions  `json:"risk_exceptions"`
 	SecurityPoliciesIncident []*OnlyId       `json:"security_policies_incident"`
