@@ -3,7 +3,7 @@
 ## Commands
 
 - `golangci-lint fmt`: golang code format
-- `golangci-lint fmt`: golang code linting
+- `golangci-lint run`: golang code linting
 
 
 ## Architecture
