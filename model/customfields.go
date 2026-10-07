@@ -37,6 +37,42 @@ func (c CustomFields) GetString(key string) (string, bool) {
 	return "", false
 }
 
+func (c CustomFields) SetStringSlices(key string, value []string) {
+	values := make([]CustomField, 0, len(value))
+	for _, mValue := range value {
+		values = append(values, CustomField{
+			Value: mValue,
+		})
+	}
+	if field, exists := c[key]; !exists {
+		c[key] = CustomField{
+			MultiValue: values,
+		}
+	} else {
+		field.MultiValue = values
+		c[key] = field
+	}
+}
+
+func (c CustomFields) GetStringSlices(key string) ([]string, bool) {
+	if value, exists := c[key]; exists {
+		values := []string{}
+		if value.Value != nil {
+			return []string{}, false
+		}
+		for _, mValue := range value.MultiValue {
+			str, isStr := mValue.Value.(string)
+			if isStr {
+				values = append(values, str)
+			} else {
+				return []string{}, false
+			}
+		}
+		return values, true
+	}
+	return []string{}, false
+}
+
 func (c CustomFields) SetInt(key string, value int) {
 	if field, exists := c[key]; !exists {
 		c[key] = CustomField{
@@ -50,9 +86,11 @@ func (c CustomFields) SetInt(key string, value int) {
 
 func (c CustomFields) GetInt(key string) (int, bool) {
 	if value, exists := c[key]; exists {
-		integer, isInt := value.Value.(int)
-		if isInt {
-			return integer, true
+		switch v := value.Value.(type) {
+		case int:
+			return v, true
+		case float64:
+			return int(v), true
 		}
 	}
 	return 0, false
