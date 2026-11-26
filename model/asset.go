@@ -24,13 +24,6 @@ func (p *AssetLabelId) MarshalJSON() ([]byte, error) {
 	return fmt.Appendf([]byte{}, "%d", *p), nil
 }
 
-type Risks []*Risk
-
-func (p Risks) MarshalJSON() ([]byte, error) {
-	list := extractPatchListId(p)
-	return json.Marshal(list)
-}
-
 type Assets []*Asset
 
 func (p Assets) MarshalJSON() ([]byte, error) {

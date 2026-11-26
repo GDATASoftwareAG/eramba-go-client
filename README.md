@@ -5,7 +5,7 @@
 
 ## Supported Eramba Instance
 
-Minimal requirement is Eramba 3.28.0.
+Tested with Eramba 3.32.0.
 
 ## Supported APIs
 
@@ -24,6 +24,11 @@ Minimal requirement is Eramba 3.28.0.
 | Third Parties           | Get, Index, Patch, Post, Delete | Supported     |                        |           |
 | Third Party Risks       | Get, Index, Patch, Post, Delete | Supported     | Comments               | Supported |
 | BusinessContinuity      | Get, Index, Patch, Post, Delete | Supported     | Comments               | Supported |
+| Security Incidents (v2) | Get, Index, Post, Put, Delete   | Supported     | Comments               |           |
+
+> [!NOTE]
+> Security Incidents `Put` replaces the whole object. Relations and dates that are not set on the struct are sent as `[]` / `null`
+> and removed in Eramba, so fetch the object with `Get` before modifying it.
 
 ## Disclaimer
 

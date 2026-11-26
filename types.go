@@ -100,3 +100,10 @@ func (a *Client) Projects() *GetAndPatchClientWithComment[model.Project] {
 		path:   "projects",
 	}
 }
+
+func (a *Client) SecurityIncidents() *ReadWriteClientV2WithComment[model.SecurityIncident] {
+	return &ReadWriteClientV2WithComment[model.SecurityIncident]{
+		client: a,
+		path:   "v2/security-incidents",
+	}
+}

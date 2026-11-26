@@ -1,5 +1,7 @@
 package model
 
+import "encoding/json"
+
 type BusinessContinuity struct {
 	Id          int32  `json:"id"`
 	Title       string `json:"title"`
@@ -73,4 +75,11 @@ func (p *BusinessContinuity) MarshalJSON() ([]byte, error) {
 	extraFields := MarshalRiskClassification(
 		FieldRiskClassificationsBusinessContinuitiesPrefix, p.RiskClassificationAnalysis, p.RiskClassificationTreatment)
 	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, extraFields, BusinessContinuitySkippedFields)
+}
+
+type BusinessContinuities []*BusinessContinuity
+
+func (p BusinessContinuities) MarshalJSON() ([]byte, error) {
+	list := extractPatchListId(p)
+	return json.Marshal(list)
 }

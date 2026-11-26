@@ -11,6 +11,8 @@ import (
 type CommentsClient struct {
 	client *Client
 	path   string
+	// v2 APIs create comments via POST {path}/{id}/comments instead of {path}/{id}/comments/add
+	v2 bool
 }
 
 func (a *CommentsClient) GetComments(ctx context.Context, foreignKey int32) ([]model.Comment, error) {
@@ -26,8 +28,9 @@ func (a *CommentsClient) DeleteComment(ctx context.Context, foreignKey, id int32
 }
 
 func (a *CommentsClient) PostComment(ctx context.Context, foreignKey int32, data *model.Comment) (*model.Comment, error) {
-	return a.client.postOrPatchJsonByPath(
-		ctx, http.MethodPost,
-		fmt.Sprintf("%s/%d/comments/add", a.path, foreignKey),
-		data)
+	path := fmt.Sprintf("%s/%d/comments", a.path, foreignKey)
+	if !a.v2 {
+		path += "/add"
+	}
+	return a.client.postOrPatchJsonByPath(ctx, http.MethodPost, path, data)
 }

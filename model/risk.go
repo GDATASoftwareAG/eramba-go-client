@@ -1,5 +1,7 @@
 package model
 
+import "encoding/json"
+
 type Risk struct {
 	Id          int32  `json:"id"`
 	Title       string `json:"title"`
@@ -68,4 +70,11 @@ func (p *Risk) MarshalJSON() ([]byte, error) {
 	extraFields := MarshalRiskClassification(
 		FieldRiskClassificationsRisksPrefix, p.RiskClassificationAnalysis, p.RiskClassificationTreatment)
 	return MarshalWithSpecialFields(Alias(*p), p.CustomFields, extraFields, RiskSkippedFields)
+}
+
+type Risks []*Risk
+
+func (p Risks) MarshalJSON() ([]byte, error) {
+	list := extractPatchListId(p)
+	return json.Marshal(list)
 }

@@ -7,3 +7,4 @@ test/
 data/*
 !data/.gitkeep
 .golangci.bck.yml
+.zedignore
