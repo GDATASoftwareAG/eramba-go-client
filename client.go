@@ -103,7 +103,9 @@ func (a *Client) deleteById(ctx context.Context, path string, id int32) error {
 	if resp.StatusCode >= http.StatusBadRequest {
 		return a.errorHandling(resp, http.MethodDelete)
 	}
-	return nil
+	defer resp.Body.Close()
+	_, err = io.Copy(io.Discard, resp.Body)
+	return err
 }
 
 func (a *Client) errorHandling(resp *http.Response, method string) error {
@@ -255,6 +257,18 @@ func (a *ReadWriteClientV2[K]) Put(
 
 func (a *ReadWriteClientV2[K]) Delete(ctx context.Context, id int32) error {
 	return a.client.deleteById(ctx, a.path, id)
+}
+
+type ReadWriteClientV2WithComment[K any] struct {
+	ReadWriteClientV2[K]
+}
+
+func (a *ReadWriteClientV2WithComment[K]) Comments() *CommentsClient {
+	return &CommentsClient{
+		client: a.client,
+		path:   a.path,
+		v2:     true,
+	}
 }
 
 type GetAndPatchClientWithComment[K any] struct {
